@@ -16,9 +16,8 @@ public class HandView extends JPanel {
     setPreferredSize(new Dimension(100, hand.size() * boxHeight));
     setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-    setBackground(color);
     for (Card card : hand) {
-      CardView cardView = new CardView(card);
+      CardView cardView = new CardView(card, color);
       cardView.setAlignmentX(Component.CENTER_ALIGNMENT);
       add(cardView);
     }

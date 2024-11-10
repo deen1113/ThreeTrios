@@ -8,7 +8,7 @@ import model.Card;
 import model.Direction;
 
 public class CardView extends JPanel {
-  private final Card card;
+  private final Color color;
   private final int width = 100;
   private final int height = 50;
   private String northText;
@@ -16,8 +16,8 @@ public class CardView extends JPanel {
   private String eastText;
   private String westText;
 
-  public CardView(Card card) {
-    this.card = card;
+  public CardView(Card card, Color color) {
+    this.color = color;
     northText = String.valueOf(card.getAttack(Direction.NORTH));
     if (northText.equals("10")) {
       northText = "A";
@@ -45,6 +45,8 @@ public class CardView extends JPanel {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
 
+    g2d.setColor(color);
+    g2d.fillRect(0, 0, width, height);
     g2d.setColor(Color.BLACK);
     g2d.drawRect(0, 0, width - 1, height - 1);
     g2d.setFont(new Font("Arial", Font.BOLD, 15));

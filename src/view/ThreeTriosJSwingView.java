@@ -18,10 +18,10 @@ public class ThreeTriosJSwingView extends JFrame {
   public ThreeTriosJSwingView(IReadonlyThreeTriosModel model) {
     this.model = model;
 
-    redSide = new HandView(Color.RED, model.getRedHand());
+    redSide = new HandView(Color.PINK, model.getRedHand());
     add(redSide, BorderLayout.WEST);
 
-    blueSide = new HandView(Color.BLUE, model.getBlueHand());
+    blueSide = new HandView(Color.CYAN, model.getBlueHand());
     add(blueSide, BorderLayout.EAST);
 
     grid = new GridView(model);
