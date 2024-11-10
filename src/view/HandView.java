@@ -10,10 +10,8 @@ import java.awt.Graphics;
 import java.util.List;
 
 public class HandView extends JPanel {
-  int boxHeight = 50;
-
   public HandView(Color color, List<Card> hand) {
-    setPreferredSize(new Dimension(100, hand.size() * boxHeight));
+    setPreferredSize(new Dimension(100, 50));
     setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
     for (Card card : hand) {

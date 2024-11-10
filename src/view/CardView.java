@@ -1,16 +1,21 @@
 package view;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.geom.Path2D;
 
 import javax.swing.JPanel;
-
 import model.Card;
 import model.Direction;
 
 public class CardView extends JPanel {
   private final Color color;
-  private final int width = 100;
-  private final int height = 50;
+  private int width = 100;
+  private int height = 50;
   private String northText;
   private String southText;
   private String eastText;
@@ -40,16 +45,33 @@ public class CardView extends JPanel {
     setPreferredSize(new Dimension(width, height));
   }
 
+  private Path2D createCard() {
+    Path2D.Double path = new Path2D.Double();
+    path.moveTo(0, 0);
+    path.lineTo(width, 0);
+    path.lineTo(width, height);
+    path.lineTo(0, height);
+    path.closePath();
+    return path;
+  }
+
   @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
 
+    width = getWidth();
+    height = getHeight();
+    Path2D card = createCard();
+
     g2d.setColor(color);
-    g2d.fillRect(0, 0, width, height);
+    g2d.fill(card);
+
     g2d.setColor(Color.BLACK);
-    g2d.drawRect(0, 0, width - 1, height - 1);
-    g2d.setFont(new Font("Arial", Font.BOLD, 15));
+    g2d.draw(card);
+
+    int fontSize = Math.min(width, height) / 3;
+    g2d.setFont(new Font("Arial", Font.BOLD, fontSize));
     FontMetrics metrics = g2d.getFontMetrics(g2d.getFont());
 
     // Draw North
