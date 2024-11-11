@@ -9,9 +9,13 @@ import java.awt.FontMetrics;
 import java.awt.geom.Path2D;
 
 import javax.swing.JPanel;
+
 import model.Card;
 import model.Direction;
 
+/**
+ * This class implements the view for each individual card.
+ */
 public class CardView extends JPanel {
   private final Color color;
   private int width = 100;
@@ -21,6 +25,13 @@ public class CardView extends JPanel {
   private String eastText;
   private String westText;
 
+  /**
+   * This constructor sets the number from each direction of a card to a variable.
+   * If the number is 10, it is converted back into an A.
+   *
+   * @param card  the card
+   * @param color the player's color the card belongs to
+   */
   public CardView(Card card, Color color) {
     this.color = color;
     northText = String.valueOf(card.getAttack(Direction.NORTH));
