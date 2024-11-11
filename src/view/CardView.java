@@ -18,6 +18,7 @@ import model.Direction;
  */
 public class CardView extends JPanel {
   private final Color color;
+  private final Card card;
   private int width = 100;
   private int height = 50;
   private String northText;
@@ -34,6 +35,7 @@ public class CardView extends JPanel {
    */
   public CardView(Card card, Color color) {
     this.color = color;
+    this.card = card;
     northText = String.valueOf(card.getAttack(Direction.NORTH));
     if (northText.equals("10")) {
       northText = "A";
@@ -64,6 +66,10 @@ public class CardView extends JPanel {
     path.lineTo(0, height);
     path.closePath();
     return path;
+  }
+
+  public Card getCard() {
+    return this.card;
   }
 
   @Override

@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
+import javax.swing.border.LineBorder;
 
 import model.Card;
 
@@ -9,12 +10,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 /**
  * This class implements the hand's view.
  */
 public class HandView extends JPanel {
+
+  private CardView selectedCardView;
 
   /**
    * This is the constructor for the HandView. It takes a color for
@@ -31,8 +36,37 @@ public class HandView extends JPanel {
     for (Card card : hand) {
       CardView cardView = new CardView(card, color);
       cardView.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+      cardView.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+          handleCardClick(cardView);
+        }
+      });
+
       add(cardView);
     }
+  }
+
+  private void handleCardClick(CardView cardView) {
+    if (selectedCardView != null) {
+      selectedCardView.setBorder(null);
+    }
+    if (selectedCardView == cardView) {
+      selectedCardView = null;
+      return;
+    }
+
+    selectedCardView = cardView;
+    selectedCardView.setBorder(new LineBorder(Color.GREEN, 3));
+
+    System.out.println("Selected card: " + selectedCardView.getName());
+  }
+
+
+  public CardView getSelectedCardView() {
+    if (selectedCardView != null) return selectedCardView;
+    return null;
   }
 
   @Override
