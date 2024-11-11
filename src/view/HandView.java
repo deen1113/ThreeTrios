@@ -69,6 +69,17 @@ public class HandView extends JPanel {
     return null;
   }
 
+  public void removeSelectedCardView() {
+    if (selectedCardView != null) {
+      remove(selectedCardView);
+      selectedCardView = null;
+      revalidate();
+      repaint();
+    }
+  }
+
+
+
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
