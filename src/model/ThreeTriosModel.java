@@ -16,6 +16,7 @@ public class ThreeTriosModel implements IThreeTriosModel {
   private Grid grid;
   private GameState gameState;
   private int numFlipped = 0;
+  private Card simCard;
 
   /**
    * Constructor for the ThreeTriosModel.
@@ -138,7 +139,7 @@ public class ThreeTriosModel implements IThreeTriosModel {
       if (attack > defense) {
         if (isSim) {
           numFlipped++;
-          simulateBattle(row - 1, col);
+          simulateBattle(simCard, row - 1, col);
         }
         grid.getCard(row - 1, col).setColor(color);
         battle(row - 1, col);
@@ -160,7 +161,7 @@ public class ThreeTriosModel implements IThreeTriosModel {
       if (attack > defense) {
         if (isSim) {
           numFlipped++;
-          simulateBattle(row + 1, col);
+          simulateBattle(simCard, row + 1, col);
         }
         grid.getCard(row + 1, col).setColor(color);
         battle(row + 1, col);
@@ -183,7 +184,7 @@ public class ThreeTriosModel implements IThreeTriosModel {
       if (attack > defense) {
         if (isSim) {
           numFlipped++;
-          simulateBattle(row, col + 1);
+          simulateBattle(simCard, row, col + 1);
         }
         grid.getCard(row, col + 1).setColor(color);
         battle(row, col + 1);
@@ -206,7 +207,7 @@ public class ThreeTriosModel implements IThreeTriosModel {
       if (attack > defense) {
         if (isSim) {
           numFlipped++;
-          simulateBattle(row, col - 1);
+          simulateBattle(simCard, row, col - 1);
         }
         grid.getCard(row, col - 1).setColor(color);
         battle(row, col - 1);
@@ -226,6 +227,7 @@ public class ThreeTriosModel implements IThreeTriosModel {
     return true;
   }
 
+  @Override
   public PlayerColor determineWinner() {
     int redCount = 0;
     int blueCount = 0;
@@ -357,26 +359,26 @@ public class ThreeTriosModel implements IThreeTriosModel {
 
   @Override
   public int totalFlippedWithMove(Card card, int row, int col) {
-
-    simulateBattle(row, col);
+    simCard = card;
+    simulateBattle(card, row, col);
 
     int tempNumFlipped = numFlipped;
     numFlipped = 0;
-    return numFlipped;
+    return tempNumFlipped;
   }
 
-  private void simulateBattle(int row, int col) {
+  private void simulateBattle(Card card, int row, int col) {
 
     // check north
-    attackNorth(row, col, grid.getCard(row, col).getColor(), true);
+    attackNorth(row, col, card.getColor(), true);
 
     // check south
-    attackSouth(row, col, grid.getCard(row, col).getColor(), true);
+    attackSouth(row, col, card.getColor(), true);
 
     // check east
-    attackEast(row, col, grid.getCard(row, col).getColor(), true);
+    attackEast(row, col, card.getColor(), true);
 
     // check west
-    attackWest(row, col, grid.getCard(row, col).getColor(), true);
+    attackWest(row, col, card.getColor(), true);
   }
 }
