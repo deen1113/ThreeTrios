@@ -4,6 +4,10 @@ import model.Card;
 import model.IReadonlyThreeTriosModel;
 import model.PlayerColor;
 
+/**
+ * This strategy finds the move that flips as many cards
+ * as possible with a single move.
+ */
 public class FlipMaxCards implements IThreeTriosStrategy {
   int totalFlippedCards = 0;
   int bestRow = 0;

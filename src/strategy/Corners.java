@@ -8,6 +8,11 @@ import model.Direction;
 import model.IReadonlyThreeTriosModel;
 import model.PlayerColor;
 
+/**
+ * This strategy goes for each corner of the grid first,
+ * since the corners hide two of the sides, making them harder to flip.
+ * The strategy then picks the card with the two highest exposed numbers.
+ */
 public class Corners implements IThreeTriosStrategy {
   Card hardestCardToFlip;
   List<Card> hand = new ArrayList<>();
@@ -22,15 +27,23 @@ public class Corners implements IThreeTriosStrategy {
 
     if (playerColor == PlayerColor.RED) {
       hand = model.getRedHand();
-      if (model.isMoveValid(0, 0)) {
-        return new Coord(0, 0, checkTopLeft(model));
-      } else if (model.isMoveValid(0, colIndex)) {
-        return new Coord(0, colIndex, checkTopRight(model));
-      } else if (model.isMoveValid(rowIndex, 0)) {
-        return new Coord(rowIndex, 0, checkBottomLeft(model));
-      } else if (model.isMoveValid(rowIndex, colIndex)) {
-        return new Coord(rowIndex, colIndex, checkBottomRight(model));
-      }
+      return  getBestMove(model);
+    } else if (playerColor == PlayerColor.BLUE) {
+      hand = model.getBlueHand();
+      return  getBestMove(model);
+    }
+    return null;
+  }
+
+  private Coord getBestMove(IReadonlyThreeTriosModel model) {
+    if (model.isMoveValid(0, 0)) {
+      return new Coord(0, 0, checkTopLeft(model));
+    } else if (model.isMoveValid(0, colIndex)) {
+      return new Coord(0, colIndex, checkTopRight(model));
+    } else if (model.isMoveValid(rowIndex, 0)) {
+      return new Coord(rowIndex, 0, checkBottomLeft(model));
+    } else if (model.isMoveValid(rowIndex, colIndex)) {
+      return new Coord(rowIndex, colIndex, checkBottomRight(model));
     }
     return null;
   }
