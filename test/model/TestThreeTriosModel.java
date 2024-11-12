@@ -7,6 +7,8 @@ import org.junit.Assert;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import strategy.Coord;
+import strategy.FlipMaxCards;
 import view.ThreeTriosView;
 
 /**
@@ -387,5 +389,14 @@ public class TestThreeTriosModel {
     model = new ThreeTriosModel("resources" + File.separator + "smallDeck.txt",
             "resources" + File.separator + "grid3x3Holes.txt");
     model.startGame();
+  }
+
+  // test flip max cards strategy
+  @Test
+  public void testFlipMaxCardsStrategy() {
+    model.startGame();
+    FlipMaxCards strategy = new FlipMaxCards();
+    Coord coord = strategy.chooseMove(model, PlayerColor.RED);
+    model.placeCard(coord.getRow(), coord.getCol(), coord.getCardIndex(), PlayerColor.RED);
   }
 }

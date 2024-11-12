@@ -18,6 +18,7 @@ public class Corners implements IThreeTriosStrategy {
   List<Card> hand = new ArrayList<>();
   int rowIndex = 0;
   int colIndex = 0;
+  int cardIdx = -1;
 
 
   @Override
@@ -27,10 +28,10 @@ public class Corners implements IThreeTriosStrategy {
 
     if (playerColor == PlayerColor.RED) {
       hand = model.getRedHand();
-      return  getBestMove(model);
+      return getBestMove(model);
     } else if (playerColor == PlayerColor.BLUE) {
       hand = model.getBlueHand();
-      return  getBestMove(model);
+      return getBestMove(model);
     }
     return null;
   }
@@ -48,8 +49,9 @@ public class Corners implements IThreeTriosStrategy {
     return null;
   }
 
-  private Card checkBottomRight(IReadonlyThreeTriosModel model) {
-    for (Card card : hand) {
+  private int checkBottomRight(IReadonlyThreeTriosModel model) {
+    for (int i = 0; i < hand.size(); i++) {
+      Card card = hand.get(i);
       int cardNorthAttack = card.getAttack(Direction.NORTH);
       int cardWestAttack = card.getAttack(Direction.WEST);
       int hardestCardNorthAttack = hardestCardToFlip.getAttack(Direction.NORTH);
@@ -57,17 +59,20 @@ public class Corners implements IThreeTriosStrategy {
 
       if (hardestCardToFlip == null) {
         hardestCardToFlip = card;
+        cardIdx = i;
       }
 
       if (cardNorthAttack > hardestCardNorthAttack && cardWestAttack > hardestCardWestAttack) {
         hardestCardToFlip = card;
+        cardIdx = i;
       }
     }
-    return hardestCardToFlip;
+    return cardIdx;
   }
 
-  private Card checkBottomLeft(IReadonlyThreeTriosModel model) {
-    for (Card card : hand) {
+  private int checkBottomLeft(IReadonlyThreeTriosModel model) {
+    for (int i = 0; i < hand.size(); i++) {
+      Card card = hand.get(i);
       int cardNorthAttack = card.getAttack(Direction.NORTH);
       int cardEastAttack = card.getAttack(Direction.EAST);
       int hardestCardNorthAttack = hardestCardToFlip.getAttack(Direction.NORTH);
@@ -75,17 +80,20 @@ public class Corners implements IThreeTriosStrategy {
 
       if (hardestCardToFlip == null) {
         hardestCardToFlip = card;
+        cardIdx = i;
       }
 
       if (cardNorthAttack > hardestCardNorthAttack && cardEastAttack > hardestCardEastAttack) {
         hardestCardToFlip = card;
+        cardIdx = i;
       }
     }
-    return hardestCardToFlip;
+    return cardIdx;
   }
 
-  private Card checkTopRight(IReadonlyThreeTriosModel model) {
-    for (Card card : hand) {
+  private int checkTopRight(IReadonlyThreeTriosModel model) {
+    for (int i = 0; i < hand.size(); i++) {
+      Card card = hand.get(i);
       int cardWestAttack = card.getAttack(Direction.WEST);
       int cardSouthAttack = card.getAttack(Direction.SOUTH);
       int hardestCardWestAttack = hardestCardToFlip.getAttack(Direction.WEST);
@@ -93,17 +101,20 @@ public class Corners implements IThreeTriosStrategy {
 
       if (hardestCardToFlip == null) {
         hardestCardToFlip = card;
+        cardIdx = i;
       }
 
       if (cardWestAttack > hardestCardWestAttack && cardSouthAttack > hardestCardSouthAttack) {
         hardestCardToFlip = card;
+        cardIdx = i;
       }
     }
-    return hardestCardToFlip;
+    return cardIdx;
   }
 
-  private Card checkTopLeft(IReadonlyThreeTriosModel model) {
-    for (Card card : hand) {
+  private int checkTopLeft(IReadonlyThreeTriosModel model) {
+    for (int i = 0; i < hand.size(); i++) {
+      Card card = hand.get(i);
       int cardEastAttack = card.getAttack(Direction.EAST);
       int cardSouthAttack = card.getAttack(Direction.SOUTH);
       int hardestCardEastAttack = hardestCardToFlip.getAttack(Direction.EAST);
@@ -111,11 +122,14 @@ public class Corners implements IThreeTriosStrategy {
 
       if (hardestCardToFlip == null) {
         hardestCardToFlip = card;
+        cardIdx = i;
       }
+
       if (cardEastAttack > hardestCardEastAttack && cardSouthAttack > hardestCardSouthAttack) {
         hardestCardToFlip = card;
+        cardIdx = i;
       }
     }
-    return hardestCardToFlip;
+    return cardIdx;
   }
 }

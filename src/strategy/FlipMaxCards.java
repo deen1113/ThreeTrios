@@ -1,5 +1,7 @@
 package strategy;
 
+import java.util.List;
+
 import model.Card;
 import model.IReadonlyThreeTriosModel;
 import model.PlayerColor;
@@ -12,8 +14,8 @@ public class FlipMaxCards implements IThreeTriosStrategy {
   int totalFlippedCards = 0;
   int bestRow = 0;
   int bestCol = 0;
-  Card bestCard = null;
-  Card tieCard = null;
+  int bestCardIndex = -1;
+  int tieCard = -1;
   int tieCount = 0;
 
   @Override
@@ -22,12 +24,16 @@ public class FlipMaxCards implements IThreeTriosStrategy {
       for (int col = 0; col < model.getGridColAmount(); col++) {
         if (model.isMoveValid(row, col)) {
           if (playerColor == PlayerColor.RED) {
-            for (Card card : model.getRedHand()) {
-              doBestMoveCheck(model, row, col, card);
+            List<Card> redHand = model.getRedHand();
+            for (int i = 0; i < redHand.size(); i++) {
+              Card card = redHand.get(i);
+              doBestMoveCheck(model, row, col, card, i);
             }
           } else if (playerColor == PlayerColor.BLUE) {
-            for (Card card : model.getBlueHand()) {
-              doBestMoveCheck(model, row, col, card);
+            List<Card> blueHand = model.getBlueHand();
+            for (int i = 0; i < blueHand.size(); i++) {
+              Card card = blueHand.get(i);
+              doBestMoveCheck(model, row, col, card, i);
             }
           }
         }
@@ -36,19 +42,20 @@ public class FlipMaxCards implements IThreeTriosStrategy {
     if (tieCount > 0) {
       return new Coord(0, 0, tieCard);
     }
-    return new Coord(bestRow, bestCol, bestCard);
+    return new Coord(bestRow, bestCol, bestCardIndex);
   }
 
-  private void doBestMoveCheck(IReadonlyThreeTriosModel model, int row, int col, Card card) {
+  private void doBestMoveCheck(
+          IReadonlyThreeTriosModel model, int row, int col, Card card, int idx) {
     int tempFlippedCards = model.totalFlippedWithMove(card, row, col);
     if (totalFlippedCards < tempFlippedCards) {
       if (row == 0 && col == 0) {
-        tieCard = card;
+        tieCard = idx;
       }
       totalFlippedCards = tempFlippedCards;
       bestRow = row;
       bestCol = col;
-      bestCard = card;
+      bestCardIndex = idx;
       tieCount = 0;
     } else if (totalFlippedCards == tempFlippedCards) {
       tieCount++;
