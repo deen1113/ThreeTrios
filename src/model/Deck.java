@@ -3,7 +3,6 @@ package model;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
@@ -60,14 +59,14 @@ public class Deck {
   }
 
   /**
-   * Shuffles the deck
+   * Shuffles the deck.
    */
   public void shuffle() {
     Collections.shuffle(deck);
   }
 
   /**
-   * Returns the deck of cards
+   * Returns the deck of cards.
    *
    * @return a list of cards
    */
@@ -76,7 +75,7 @@ public class Deck {
   }
 
   /**
-   * Draws a card from the deck
+   * Draws a card from the deck.
    *
    * @return the drawn card
    */

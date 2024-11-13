@@ -1,11 +1,12 @@
 package model;
 
-import java.util.List;
-
+/**
+ * Interface for the ThreeTriosModel class.
+ */
 public interface IThreeTriosModel extends IReadonlyThreeTriosModel {
   /**
-   * Starts the game by checking exceptions & initializing the hands, shuffling deck,
-   * and making the grid
+   * Starts the game by checking exceptions & initializing the hands, shuffling deck.
+   * And making the grid.
    *
    * @throws IllegalArgumentException if the deck size is not even or the grid size is not odd
    */

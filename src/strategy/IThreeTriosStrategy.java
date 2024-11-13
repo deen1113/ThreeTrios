@@ -10,10 +10,9 @@ import model.PlayerColor;
  * overriding the chooseMove method.
  */
 public interface IThreeTriosStrategy {
+
   /**
-   * This method returns a Coord, which provides the row, column and the Card to be played.
-   * It takes in a model to access necessary information for each strategy, as well as the
-   * playerColor in order to access the correct hands.
+   * Chooses a move based on the strategy.
    *
    * @param model for any necessary observations
    * @param playerColor for RED or BLUE hands

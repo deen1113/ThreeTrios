@@ -65,7 +65,9 @@ public class HandView extends JPanel {
 
 
   public CardView getSelectedCardView() {
-    if (selectedCardView != null) return selectedCardView;
+    if (selectedCardView != null) {
+      return selectedCardView;
+    }
     return null;
   }
 

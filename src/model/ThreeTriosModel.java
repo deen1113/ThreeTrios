@@ -36,16 +36,20 @@ public class ThreeTriosModel implements IThreeTriosModel {
 
   @Override
   public void startGame() {
-    if (gameState != GameState.NOT_STARTED) { // if the game is in any other state besides not started, throw error
+    if (gameState != GameState.NOT_STARTED) {
+      // if the game is in any other state besides not started, throw error
       throw new IllegalStateException("Game is not ready to start.");
     }
-    if (deck.getDeck().size() % 2 != 0) { // deck size must be even
+    if (deck.getDeck().size() % 2 != 0) {
+      // deck size must be even
       throw new IllegalArgumentException("Deck size must be even");
     }
-    if (grid.getNumCardCells() % 2 == 0) { // grid size must be odd
+    if (grid.getNumCardCells() % 2 == 0) {
+      // grid size must be odd
       throw new IllegalArgumentException("Number of card cells must be odd");
     }
-    if(grid.getNumCardCells() > deck.getDeck().size()) { // grid size must be less than or equal to deck size
+    if (grid.getNumCardCells() > deck.getDeck().size()) {
+      // grid size must be less than or equal to deck size
       throw new IllegalArgumentException("Number of card cells must be less than or equal to deck size");
     }
     fillHands();

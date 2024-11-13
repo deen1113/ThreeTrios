@@ -1,13 +1,14 @@
 package view;
 
-import model.*;
+import model.ThreeTriosModel;
+import model.Card;
+import model.PlayerColor;
 
 
 /**
  * Represents the view for the game Three Trios.
  */
 public class ThreeTriosView {
-  private StringBuilder builder;
   private ThreeTriosModel model;
 
 
@@ -28,7 +29,7 @@ public class ThreeTriosView {
   @Override
   public String toString() {
     PlayerColor curPlayer = model.getCurrentPlayer();
-    builder = new StringBuilder();
+    StringBuilder builder = new StringBuilder();
     builder.append("Player: ").append(curPlayer).append("\n");
     for (int row = 0; row < model.getGrid().getGrid().length; row++) {
       for (int col = 0; col < model.getGrid().getGrid()[0].length; col++) {

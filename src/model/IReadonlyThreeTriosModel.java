@@ -122,9 +122,9 @@ public interface IReadonlyThreeTriosModel {
   /**
    * Returns the total amount of cards flipped with a move.
    *
-   * @param card
-   * @param row
-   * @param col
+   * @param card the card to be placed
+   * @param row the row to place the card
+   * @param col the column to place the card
    * @return the total amount of cards flipped
    */
   int totalFlippedWithMove(Card card, int row, int col);
