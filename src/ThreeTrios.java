@@ -15,8 +15,8 @@ public final class ThreeTrios {
   /**
    *  Main.
    *
-   * @param args
-   * @throws FileNotFoundException
+   * @param args arguments
+   * @throws FileNotFoundException if file not found
    */
   public static void main(String[] args) throws FileNotFoundException {
     ThreeTriosModel model = new ThreeTriosModel(

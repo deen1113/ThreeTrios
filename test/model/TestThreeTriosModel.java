@@ -384,7 +384,8 @@ public class TestThreeTriosModel {
             "resources" + File.separator + "nonExistentGrid.txt");
   }
 
-  @Test
+
+  @Test(expected = IllegalArgumentException.class)
   public void testDeckTooSmall() throws FileNotFoundException {
     model = new ThreeTriosModel("resources" + File.separator + "smallDeck.txt",
             "resources" + File.separator + "grid3x3Holes.txt");
@@ -392,7 +393,7 @@ public class TestThreeTriosModel {
   }
 
   // test flip max cards strategy
-  @Test
+  @Test(expected = IllegalArgumentException.class)
   public void testFlipMaxCardsStrategy() {
     model.startGame();
     FlipMaxCards strategy = new FlipMaxCards();

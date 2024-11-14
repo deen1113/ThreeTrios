@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import model.Card;
-import model.Direction;
-import model.IReadonlyThreeTriosModel;
-import model.PlayerColor;
 
 /**
  * Mock implementation of IReadonlyThreeTriosModel for testing strategies.

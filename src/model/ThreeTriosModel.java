@@ -50,7 +50,9 @@ public class ThreeTriosModel implements IThreeTriosModel {
     }
     if (grid.getNumCardCells() > deck.getDeck().size()) {
       // grid size must be less than or equal to deck size
-      throw new IllegalArgumentException("Number of card cells must be less than or equal to deck size");
+      throw new IllegalArgumentException(
+              "Number of card cells must be less than or equal to deck size"
+      );
     }
     fillHands();
     gameState = GameState.PLACING;

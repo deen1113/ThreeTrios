@@ -63,7 +63,11 @@ public class HandView extends JPanel {
     System.out.println("Selected card: " + selectedCardView.getName());
   }
 
-
+  /**
+   * This method gets and returns the selectCardView.
+   *
+   * @return
+   */
   public CardView getSelectedCardView() {
     if (selectedCardView != null) {
       return selectedCardView;
@@ -71,6 +75,10 @@ public class HandView extends JPanel {
     return null;
   }
 
+
+  /**
+   * This method removes the selected card view.
+   */
   public void removeSelectedCardView() {
     if (selectedCardView != null) {
       remove(selectedCardView);

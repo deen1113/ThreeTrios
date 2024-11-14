@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 import model.Card;
-import model.Direction;
 import model.MockThreeTriosModel;
 import model.PlayerColor;
 import strategy.Coord;
