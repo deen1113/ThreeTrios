@@ -29,5 +29,5 @@ public interface IThreeTriosJSwingView {
    *
    * @return the clicked card's index
    */
-  int getSelectedCard();
+  int getSelectedCardIndex();
 }

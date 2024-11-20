@@ -1,7 +1,5 @@
 package controller;
 
-
-import model.ICard;
 import model.IThreeTriosModel;
 import model.Player;
 import view.IThreeTriosJSwingView;
@@ -18,9 +16,14 @@ public class ThreeTriosController implements IPlayerActions {
     this.player = player;
     this.view.setFeatures(this);
   }
+
   @Override
-  public void onCardSelected(int cardIndex) {
-    clickedCardIndex = cardIndex;
+  public void onCardSelected() {
+    if (view.getSelectedCardIndex() > -1) {
+      clickedCardIndex = view.getSelectedCardIndex();
+    } else {
+      throw new IllegalArgumentException("Cannot select card when it's not your turn");
+    }
   }
 
   @Override

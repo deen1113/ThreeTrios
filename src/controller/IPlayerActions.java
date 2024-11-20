@@ -12,10 +12,8 @@ public interface IPlayerActions {
   /**
    * Called when the player clicks a card from their hand.
    * Takes the index of the clicked card and saves it.
-   *
-   * @param index index of the clicked card
    */
-  void onCardSelected(int index);
+  void onCardSelected();
 
   /**
    * Called when the player selects a cell on the grid.

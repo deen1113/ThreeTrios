@@ -17,10 +17,10 @@ import model.PlayerColor;
  * the correct colors for the hands and adding the grid.
  */
 public class ThreeTriosJSwingView extends JFrame implements IThreeTriosJSwingView {
-  private IReadonlyThreeTriosModel model;
+  private final IReadonlyThreeTriosModel model;
+  private final HandView redHand;
+  private final HandView blueHand;
   private IPlayerActions features;
-  private HandView redHand;
-  private HandView blueHand;
 
   /**
    * This is the constructor for the view. All the other views
@@ -57,12 +57,20 @@ public class ThreeTriosJSwingView extends JFrame implements IThreeTriosJSwingVie
   }
 
   @Override
-  public int getSelectedCard() {
-   if (model.getCurrentPlayer().getColor().equals(PlayerColor.RED)) {
-     return redHand.getSelectedCardView().getIndex();
-   } else if (model.getCurrentPlayer().getColor().equals(PlayerColor.BLUE)) {
-     return blueHand.getSelectedCardView().getIndex();
-   }
-   return -1;
+  public int getSelectedCardIndex() {
+    CardView redSelectedCard = redHand.getSelectedCardView();
+    CardView blueSelectedCard = blueHand.getSelectedCardView();
+    if (model.getCurrentPlayer().getColor().equals(PlayerColor.RED)) {
+      if (redSelectedCard == null) {
+        throw new IllegalArgumentException("Cannot select a blue card.");
+      }
+      return redSelectedCard.getIndex();
+    } else if (model.getCurrentPlayer().getColor().equals(PlayerColor.BLUE)) {
+      if (blueSelectedCard == null) {
+        throw new IllegalArgumentException("Cannot select a red card.");
+      }
+      return blueSelectedCard.getIndex();
+    }
+    return -1;
   }
 }
