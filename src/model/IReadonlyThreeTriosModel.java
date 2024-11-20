@@ -21,7 +21,7 @@ public interface IReadonlyThreeTriosModel {
    * This includes all the cards they own on the grid and the cards
    * they have remaining in their hand.
    */
-  PlayerColor determineWinner();
+  Player determineWinner();
 
   /**
    * Returns a copy of the Red Player's hand.
@@ -29,7 +29,7 @@ public interface IReadonlyThreeTriosModel {
    *
    * @return a copy of the list redHand
    */
-  List<Card> getRedHand();
+  List<ICard> getRedHand();
 
   /**
    * Returns a copy of the Blue Player's hand.
@@ -37,7 +37,7 @@ public interface IReadonlyThreeTriosModel {
    *
    * @return a copy of the list blueHand
    */
-  List<Card> getBlueHand();
+  List<ICard> getBlueHand();
 
 
   /**
@@ -84,7 +84,7 @@ public interface IReadonlyThreeTriosModel {
    * @param col the cell's column
    * @return Card or null
    */
-  Card cellContents(int row, int col);
+  ICard cellContents(int row, int col);
 
   /**
    * Returns the Red Player's total score. This includes the amount
@@ -127,12 +127,12 @@ public interface IReadonlyThreeTriosModel {
    * @param col the column to place the card
    * @return the total amount of cards flipped
    */
-  int totalFlippedWithMove(Card card, int row, int col);
+  int totalFlippedWithMove(ICard card, int row, int col);
 
   /**
    * Returns the current player color.
    *
    * @return either PlayerColor RED or BLUE
    */
-  PlayerColor getCurrentPlayer();
+  Player getCurrentPlayer();
 }

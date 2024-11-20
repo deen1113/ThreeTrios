@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.Card;
 import model.Direction;
+import model.ICard;
 import model.IReadonlyThreeTriosModel;
 import model.PlayerColor;
 
@@ -14,8 +15,8 @@ import model.PlayerColor;
  * The strategy then picks the card with the two highest exposed numbers.
  */
 public class Corners implements IThreeTriosStrategy {
-  Card hardestCardToFlip;
-  List<Card> hand = new ArrayList<>();
+  ICard hardestCardToFlip;
+  List<ICard> hand = new ArrayList<>();
   int rowIndex = 0;
   int colIndex = 0;
   int cardIdx = -1;
@@ -51,7 +52,7 @@ public class Corners implements IThreeTriosStrategy {
 
   private int checkBottomRight(IReadonlyThreeTriosModel model) {
     for (int i = 0; i < hand.size(); i++) {
-      Card card = hand.get(i);
+      ICard card = hand.get(i);
       int cardNorthAttack = card.getAttack(Direction.NORTH);
       int cardWestAttack = card.getAttack(Direction.WEST);
       int hardestCardNorthAttack = hardestCardToFlip.getAttack(Direction.NORTH);
@@ -93,7 +94,7 @@ public class Corners implements IThreeTriosStrategy {
 
   private int checkTopRight(IReadonlyThreeTriosModel model) {
     for (int i = 0; i < hand.size(); i++) {
-      Card card = hand.get(i);
+      ICard card = hand.get(i);
       int cardWestAttack = card.getAttack(Direction.WEST);
       int cardSouthAttack = card.getAttack(Direction.SOUTH);
       int hardestCardWestAttack = hardestCardToFlip.getAttack(Direction.WEST);

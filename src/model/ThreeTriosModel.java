@@ -9,14 +9,16 @@ import java.util.List;
  */
 public class ThreeTriosModel implements IThreeTriosModel {
 
-  private PlayerColor currentPlayer;
-  private List<Card> redHand;
-  private List<Card> blueHand;
+  private Player currentPlayer;
+  private Player redPlayer;
+  private Player bluePlayer;
+  private List<ICard> redHand;
+  private List<ICard> blueHand;
   private Deck deck;
   private Grid grid;
   private GameState gameState;
   private int numFlipped = 0;
-  private Card simCard;
+  private ICard simCard;
 
   /**
    * Constructor for the ThreeTriosModel.
@@ -30,7 +32,9 @@ public class ThreeTriosModel implements IThreeTriosModel {
     this.grid = new Grid(gridFile);
     redHand = new ArrayList<>();
     blueHand = new ArrayList<>();
-    this.currentPlayer = PlayerColor.RED;
+    redPlayer = new Player(PlayerColor.RED, redHand);
+    bluePlayer = new Player(PlayerColor.BLUE, blueHand);
+    this.currentPlayer = redPlayer;
     gameState = GameState.NOT_STARTED;
   }
 
@@ -72,16 +76,16 @@ public class ThreeTriosModel implements IThreeTriosModel {
 
 
     if (color == PlayerColor.RED) {
-      placeCardHelper(row, col, redHand, handIndex);
+      placeCardHelper(row, col, redPlayer.getHand(), handIndex);
     } else if (color == PlayerColor.BLUE) {
-      placeCardHelper(row, col, blueHand, handIndex);
+      placeCardHelper(row, col, bluePlayer.getHand(), handIndex);
     } else {
       throw new IllegalArgumentException("Color cannot be null.");
     }
     gameState = GameState.BATTLE;
   }
 
-  private void placeCardHelper(int row, int col, List<Card> hand, int handIndex) {
+  private void placeCardHelper(int row, int col, List<ICard> hand, int handIndex) {
     if (hand.isEmpty()) {
       throw new IllegalArgumentException("Hand is empty.");
     }
@@ -92,7 +96,7 @@ public class ThreeTriosModel implements IThreeTriosModel {
       throw new IllegalArgumentException("Cell is already occupied.");
     }
 
-    Card card = hand.get(handIndex);
+    ICard card = hand.get(handIndex);
     grid.setCard(row, col, card);
     hand.remove(handIndex);
   }
@@ -123,10 +127,10 @@ public class ThreeTriosModel implements IThreeTriosModel {
 
     gameState = GameState.PLACING;
 
-    if (currentPlayer == PlayerColor.RED) {
-      currentPlayer = PlayerColor.BLUE;
+    if (currentPlayer == redPlayer) {
+      currentPlayer = bluePlayer;
     } else {
-      currentPlayer = PlayerColor.RED;
+      currentPlayer = redPlayer;
     }
   }
 
@@ -234,10 +238,10 @@ public class ThreeTriosModel implements IThreeTriosModel {
   }
 
   @Override
-  public PlayerColor determineWinner() {
+  public Player determineWinner() {
     int redCount = 0;
     int blueCount = 0;
-    PlayerColor winner = null;
+    Player winner = null;
 
     for (int row = 0; row < grid.getGrid().length; row++) {
       for (int col = 0; col < grid.getGrid()[0].length; col++) {
@@ -256,9 +260,9 @@ public class ThreeTriosModel implements IThreeTriosModel {
     blueCount += blueHand.size();
 
     if (redCount > blueCount) {
-      winner = PlayerColor.RED;
+      winner = redPlayer;
     } else if (blueCount > redCount) {
-      winner = PlayerColor.BLUE;
+      winner = bluePlayer;
     } else {
       return null;
     }
@@ -267,13 +271,13 @@ public class ThreeTriosModel implements IThreeTriosModel {
   }
 
   @Override
-  public List<Card> getRedHand() {
-    return redHand;
+  public List<ICard> getRedHand() {
+    return redPlayer.getHand();
   }
 
   @Override
-  public List<Card> getBlueHand() {
-    return blueHand;
+  public List<ICard> getBlueHand() {
+    return bluePlayer.getHand();
   }
 
   @Override
@@ -287,7 +291,7 @@ public class ThreeTriosModel implements IThreeTriosModel {
   }
 
   @Override
-  public PlayerColor getCurrentPlayer() {
+  public Player getCurrentPlayer() {
     return currentPlayer;
   }
 
@@ -364,7 +368,7 @@ public class ThreeTriosModel implements IThreeTriosModel {
   }
 
   @Override
-  public int totalFlippedWithMove(Card card, int row, int col) {
+  public int totalFlippedWithMove(ICard card, int row, int col) {
     simCard = card;
     simulateBattle(card, row, col);
 
@@ -373,7 +377,7 @@ public class ThreeTriosModel implements IThreeTriosModel {
     return tempNumFlipped;
   }
 
-  private void simulateBattle(Card card, int row, int col) {
+  private void simulateBattle(ICard card, int row, int col) {
 
     // check north
     attackNorth(row, col, card.getColor(), true);

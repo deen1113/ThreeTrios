@@ -4,9 +4,9 @@ import java.util.List;
 
 
 /**
- * Represents a card in the game.
+ * The implementation of a card in the game.
  */
-public class Card {
+public class Card implements ICard {
   private final String name;
   private final List<Integer> attackValues;
   private PlayerColor color;
@@ -24,51 +24,28 @@ public class Card {
     this.color = color;
   }
 
-  /**
-   * Gets the name of the card.
-   *
-   * @return name
-   */
+  @Override
   public String getName() {
     return name;
   }
 
-  /**
-   * Gets the attack value of the card in the given direction.
-   *
-   * @param direction an Enum direction of either NORTH, SOUTH, EAST, or WEST
-   * @return the index of the direction
-   */
+  @Override
   public int getAttack(Direction direction) {
     return attackValues.get(direction.ordinal());
   }
 
-  /**
-   * Gets the color of the card.
-   *
-   * @return Either RED or BLUE, depending on who owns the card
-   */
+  @Override
   public PlayerColor getColor() {
     return color;
   }
 
 
-  /**
-   * Sets color of card to provided player's color.
-   *
-   * @param color given player's color
-   * @return the card
-   */
+  @Override
   public Card setColor(PlayerColor color) {
     this.color = color;
     return this;
   }
 
-  /**
-   * Returns a string representation of the card.
-   *
-   * @return the name and the ints at each direction index
-   */
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();

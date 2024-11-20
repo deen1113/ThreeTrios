@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 
 import model.Card;
+import model.ICard;
 import model.IReadonlyThreeTriosModel;
 import model.PlayerColor;
 
@@ -73,7 +74,7 @@ public class GridView extends JPanel {
           g2d.setColor(Color.GRAY);
           g2d.fillRect(x, y, cellWidth, cellHeight);
         } else if (model.cellContents(row, col) != null) {
-          Card card = model.cellContents(row, col);
+          ICard card = model.cellContents(row, col);
           Color cardColor = card.getColor() == PlayerColor.RED ? Color.PINK : Color.CYAN;
           g2d.setColor(cardColor);
           g2d.fillRect(x, y, cellWidth, cellHeight);

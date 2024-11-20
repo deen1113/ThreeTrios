@@ -5,6 +5,7 @@ import javax.swing.BoxLayout;
 import javax.swing.border.LineBorder;
 
 import model.Card;
+import model.ICard;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -29,12 +30,13 @@ public class HandView extends JPanel {
    * @param color the player's color
    * @param hand  the player's hand
    */
-  public HandView(Color color, List<Card> hand) {
+  public HandView(Color color, List<ICard> hand) {
     setPreferredSize(new Dimension(100, 50));
     setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-    for (Card card : hand) {
-      CardView cardView = new CardView(card, color);
+    for (int i = 0; i < hand.size(); i++) {
+      ICard card = hand.get(i);
+      CardView cardView = new CardView(card, color, i);
       cardView.setAlignmentX(Component.CENTER_ALIGNMENT);
 
       cardView.addMouseListener(new MouseAdapter() {
@@ -66,7 +68,7 @@ public class HandView extends JPanel {
   /**
    * This method gets and returns the selectCardView.
    *
-   * @return
+   * @return the selected Card
    */
   public CardView getSelectedCardView() {
     if (selectedCardView != null) {

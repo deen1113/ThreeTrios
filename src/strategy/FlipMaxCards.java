@@ -2,7 +2,7 @@ package strategy;
 
 import java.util.List;
 
-import model.Card;
+import model.ICard;
 import model.IReadonlyThreeTriosModel;
 import model.PlayerColor;
 
@@ -24,15 +24,15 @@ public class FlipMaxCards implements IThreeTriosStrategy {
       for (int col = 0; col < model.getGridColAmount(); col++) {
         if (model.isMoveValid(row, col)) {
           if (playerColor == PlayerColor.RED) {
-            List<Card> redHand = model.getRedHand();
+            List<ICard> redHand = model.getRedHand();
             for (int i = 0; i < redHand.size(); i++) {
-              Card card = redHand.get(i);
+              ICard card = redHand.get(i);
               doBestMoveCheck(model, row, col, card, i);
             }
           } else if (playerColor == PlayerColor.BLUE) {
-            List<Card> blueHand = model.getBlueHand();
+            List<ICard> blueHand = model.getBlueHand();
             for (int i = 0; i < blueHand.size(); i++) {
-              Card card = blueHand.get(i);
+              ICard card = blueHand.get(i);
               doBestMoveCheck(model, row, col, card, i);
             }
           }
@@ -46,7 +46,7 @@ public class FlipMaxCards implements IThreeTriosStrategy {
   }
 
   private void doBestMoveCheck(
-          IReadonlyThreeTriosModel model, int row, int col, Card card, int idx) {
+          IReadonlyThreeTriosModel model, int row, int col, ICard card, int idx) {
     int tempFlippedCards = model.totalFlippedWithMove(card, row, col);
     if (totalFlippedCards < tempFlippedCards) {
       if (row == 0 && col == 0) {

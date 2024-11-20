@@ -10,15 +10,16 @@ import java.awt.geom.Path2D;
 
 import javax.swing.JPanel;
 
-import model.Card;
 import model.Direction;
+import model.ICard;
 
 /**
  * This class implements the view for each individual card.
  */
 public class CardView extends JPanel {
   private final Color color;
-  private final Card card;
+  private final ICard card;
+  private final int index;
   private int width = 100;
   private int height = 50;
   private String northText;
@@ -33,9 +34,10 @@ public class CardView extends JPanel {
    * @param card  the card
    * @param color the player's color the card belongs to
    */
-  public CardView(Card card, Color color) {
+  public CardView(ICard card, Color color, int index) {
     this.color = color;
     this.card = card;
+    this.index = index;
     northText = String.valueOf(card.getAttack(Direction.NORTH));
     if (northText.equals("10")) {
       northText = "A";
@@ -68,7 +70,11 @@ public class CardView extends JPanel {
     return path;
   }
 
-  public Card getCard() {
+  public int getIndex() {
+    return index;
+  }
+
+  public ICard getCard() {
     return this.card;
   }
 

@@ -1,20 +1,21 @@
 package controller;
 
-import model.Card;
+import model.ICard;
 
 /**
  * This interface represents a listener for player actions in the view.
  * It provides methods that are called when the player performs certain actions,
  * such as selecting a card or selecting a grid cell.
  */
-public interface IPlayerActionListener {
+public interface IPlayerActions {
 
   /**
-   * Called when the player selects a card from their hand.
+   * Called when the player clicks a card from their hand.
+   * Takes the index of the clicked card and saves it.
    *
-   * @param card the card that was selected
+   * @param index index of the clicked card
    */
-  void onCardSelected(Card card);
+  void onCardSelected(int index);
 
   /**
    * Called when the player selects a cell on the grid.

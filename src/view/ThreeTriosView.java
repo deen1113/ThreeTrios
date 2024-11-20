@@ -28,7 +28,7 @@ public class ThreeTriosView {
    */
   @Override
   public String toString() {
-    PlayerColor curPlayer = model.getCurrentPlayer();
+    PlayerColor curPlayer = model.getCurrentPlayer().getColor();
     StringBuilder builder = new StringBuilder();
     builder.append("Player: ").append(curPlayer).append("\n");
     for (int row = 0; row < model.getGrid().getGrid().length; row++) {

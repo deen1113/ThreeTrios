@@ -9,12 +9,13 @@ import java.util.Map;
  * Mock implementation of IReadonlyThreeTriosModel for testing strategies.
  */
 public class MockThreeTriosModel implements IReadonlyThreeTriosModel {
-  private int gridRows;
-  private int gridCols;
-  private List<Card> redHand;
-  private List<Card> blueHand;
-  private Map<String, Boolean> validMoves;
-  private Map<String, Integer> flippedCardsCount;
+  private final int gridRows;
+  private final int gridCols;
+  private final Player redPlayer;
+  private List<ICard> redHand;
+  private List<ICard> blueHand;
+  private final Map<String, Boolean> validMoves;
+  private final Map<String, Integer> flippedCardsCount;
 
   /**
    * Constructs a MockThreeTriosModel with specified grid size.
@@ -29,6 +30,7 @@ public class MockThreeTriosModel implements IReadonlyThreeTriosModel {
     this.blueHand = new ArrayList<>();
     this.validMoves = new HashMap<>();
     this.flippedCardsCount = new HashMap<>();
+    redPlayer = new Player(PlayerColor.RED, redHand);
   }
 
   /**
@@ -36,7 +38,7 @@ public class MockThreeTriosModel implements IReadonlyThreeTriosModel {
    *
    * @param redHand list of cards in red player's hand
    */
-  public void setRedHand(List<Card> redHand) {
+  public void setRedHand(List<ICard> redHand) {
     this.redHand = redHand;
   }
 
@@ -45,7 +47,7 @@ public class MockThreeTriosModel implements IReadonlyThreeTriosModel {
    *
    * @param blueHand list of cards in blue player's hand
    */
-  public void setBlueHand(List<Card> blueHand) {
+  public void setBlueHand(List<ICard> blueHand) {
     this.blueHand = blueHand;
   }
 
@@ -93,17 +95,17 @@ public class MockThreeTriosModel implements IReadonlyThreeTriosModel {
   }
 
   @Override
-  public int totalFlippedWithMove(Card card, int row, int col) {
+  public int totalFlippedWithMove(ICard card, int row, int col) {
     return flippedCardsCount.getOrDefault(row + "," + col + "," + card.hashCode(), 0);
   }
 
   @Override
-  public List<Card> getRedHand() {
+  public List<ICard> getRedHand() {
     return redHand;
   }
 
   @Override
-  public List<Card> getBlueHand() {
+  public List<ICard> getBlueHand() {
     return blueHand;
   }
 
@@ -143,13 +145,13 @@ public class MockThreeTriosModel implements IReadonlyThreeTriosModel {
   }
 
   @Override
-  public PlayerColor determineWinner() {
+  public Player determineWinner() {
     return null;
   }
 
   @Override
-  public PlayerColor getCurrentPlayer() {
+  public Player getCurrentPlayer() {
     // Return a default player color
-    return PlayerColor.RED;
+    return redPlayer;
   }
 }

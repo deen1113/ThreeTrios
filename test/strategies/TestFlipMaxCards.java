@@ -91,6 +91,6 @@ public class TestFlipMaxCards {
 
     assertEquals(0, move.getRow());
     assertEquals(0, move.getCol());
-    assertEquals(0, move.getCardIndex());
+    assertEquals(-1, move.getCardIndex());
   }
 }

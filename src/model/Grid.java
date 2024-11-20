@@ -71,7 +71,7 @@ public class Grid {
    * @param col  the column index of the cell
    * @param card the card being played
    */
-  public void setCard(int row, int col, Card card) {
+  public void setCard(int row, int col, ICard card) {
     grid[row][col].setCard(card);
   }
 

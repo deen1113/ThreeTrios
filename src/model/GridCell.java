@@ -5,7 +5,7 @@ package model;
  */
 public class GridCell {
   private boolean isHole;
-  private Card card;
+  private ICard card;
 
 
   /**
@@ -32,7 +32,7 @@ public class GridCell {
    *
    * @return returns the card in the cell specified
    */
-  public Card getCard() {
+  public ICard getCard() {
     return card;
   }
 
@@ -41,7 +41,7 @@ public class GridCell {
    *
    * @param card the card to be placed in the cell
    */
-  public void setCard(Card card) {
+  public void setCard(ICard card) {
     this.card = card;
     this.isHole = false;
   }
