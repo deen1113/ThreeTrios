@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import controller.IPlayerActions;
 import model.IReadonlyThreeTriosModel;
@@ -19,14 +18,11 @@ public class ThreeTriosJSwingView extends JFrame implements IThreeTriosJSwingVie
   private final IReadonlyThreeTriosModel model;
   private final HandView redHand;
   private final HandView blueHand;
+  private final GridView gridView;
   private IPlayerActions features;
 
   /**
-   * This is the constructor for the view. All the other views
-   * are added to the frame here, including their locations.
-   * The title is also set, which shows whose turn it is.
-   * The constructor takes in the model, which allows it to access
-   * each player's hand, the grid, as well as the current player.
+   * Constructor for the ThreeTriosJSwingView.
    *
    * @param model the current model
    */
@@ -41,35 +37,62 @@ public class ThreeTriosJSwingView extends JFrame implements IThreeTriosJSwingVie
     blueHand = new HandView(Color.CYAN, model.getBlueHand());
     add(blueHand, BorderLayout.EAST);
 
-    JPanel grid = new GridView(model);
-    add(grid, BorderLayout.CENTER);
+    gridView = new GridView(model);
+    add(gridView, BorderLayout.CENTER);
   }
 
   @Override
   public void refresh() {
+    PlayerColor currentPlayerColor = model.getCurrentPlayer().getColor();
+    setTitle("Current Player: " + currentPlayerColor);
 
+    boolean isRedCurrentPlayer = currentPlayerColor == PlayerColor.RED;
+    System.out.println("Refreshing view. Current player: " + currentPlayerColor);
+
+    redHand.updateHand(model.getRedHand(), isRedCurrentPlayer);
+    blueHand.updateHand(model.getBlueHand(), !isRedCurrentPlayer);
+
+    // Update grid
+    gridView.repaint();
+
+    revalidate();
+    repaint();
   }
+
 
   @Override
   public void setFeatures(IPlayerActions features) {
     this.features = features;
+    redHand.setFeatures(features);
+    blueHand.setFeatures(features);
+    gridView.setFeatures(features);
+
+    // Initial hand update
+    boolean isRedCurrentPlayer = model.getCurrentPlayer().getColor() == PlayerColor.RED;
+
+    redHand.updateHand(model.getRedHand(), isRedCurrentPlayer);
+    blueHand.updateHand(model.getBlueHand(), !isRedCurrentPlayer);
   }
 
   @Override
   public int getSelectedCardIndex() {
-    CardView redSelectedCard = redHand.getSelectedCardView();
-    CardView blueSelectedCard = blueHand.getSelectedCardView();
-    if (model.getCurrentPlayer().getColor().equals(PlayerColor.RED)) {
-      if (redSelectedCard == null) {
-        throw new IllegalArgumentException("Cannot select a blue card.");
-      }
-      return redSelectedCard.getIndex();
-    } else if (model.getCurrentPlayer().getColor().equals(PlayerColor.BLUE)) {
-      if (blueSelectedCard == null) {
-        throw new IllegalArgumentException("Cannot select a red card.");
-      }
-      return blueSelectedCard.getIndex();
+    PlayerColor currentPlayerColor = model.getCurrentPlayer().getColor();
+    CardView selectedCardView = null;
+
+    if (currentPlayerColor.equals(PlayerColor.RED)) {
+      selectedCardView = redHand.getSelectedCardView();
+    } else if (currentPlayerColor.equals(PlayerColor.BLUE)) {
+      selectedCardView = blueHand.getSelectedCardView();
     }
-    return -1;
+
+    if (selectedCardView != null) {
+      return selectedCardView.getIndex();
+    } else {
+      throw new IllegalStateException("No card selected.");
+    }
+  }
+  public void deselectCard() {
+    redHand.deselectCard();
+    blueHand.deselectCard();
   }
 }

@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
+import controller.IPlayerActions;
 import model.Card;
 import model.ICard;
 import model.IReadonlyThreeTriosModel;
@@ -21,6 +22,7 @@ import model.PlayerColor;
  */
 public class GridView extends JPanel {
   public final IReadonlyThreeTriosModel model;
+  private IPlayerActions features;
 
   /**
    * This is the constructor for the GridView. It takes a model,
@@ -41,6 +43,10 @@ public class GridView extends JPanel {
     });
   }
 
+  public void setFeatures(IPlayerActions features) {
+    this.features = features;
+  }
+
   private void handleGridClick(MouseEvent e) {
     int totalRows = model.getGridRowAmount();
     int totalCols = model.getGridColAmount();
@@ -50,6 +56,9 @@ public class GridView extends JPanel {
 
     int col = e.getX() / cellWidth;
     int row = e.getY() / cellHeight;
+
+    features.onGridCellSelected(row, col);
+
 
     System.out.println("Cell clicked at row: " + row + ", column: " + col);
   }

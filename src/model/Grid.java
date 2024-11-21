@@ -85,7 +85,7 @@ public class Grid {
   public Card getCard(int row, int col) {
     Card card;
     try {
-      card = grid[row][col].getCard();
+      card = (Card) grid[row][col].getCard();
     } catch (ArrayIndexOutOfBoundsException e) {
       throw new IllegalArgumentException("Row or Col is out of bounds.");
     }

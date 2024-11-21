@@ -1,7 +1,9 @@
 package controller;
 
+import model.ICard;
 import model.IThreeTriosModel;
 import model.Player;
+import model.PlayerColor;
 import view.IThreeTriosJSwingView;
 
 public class ThreeTriosController implements IPlayerActions {
@@ -28,7 +30,15 @@ public class ThreeTriosController implements IPlayerActions {
 
   @Override
   public void onGridCellSelected(int row, int col) {
-    model.placeCard(row, col, clickedCardIndex, player.getColor());
-    model.battle(row, col);
+    try {
+      int cardIdx = view.getSelectedCardIndex();
+      PlayerColor currentPlayerColor = model.getCurrentPlayer().getColor();
+      model.placeCard(row, col, cardIdx, currentPlayerColor);
+      model.battle(row, col);
+      view.refresh();
+    }
+    catch (IllegalStateException e) {
+      throw new IllegalArgumentException("Cannot place card when it's not your turn");
+    }
   }
 }

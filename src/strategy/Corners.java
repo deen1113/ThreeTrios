@@ -73,7 +73,7 @@ public class Corners implements IThreeTriosStrategy {
 
   private int checkBottomLeft(IReadonlyThreeTriosModel model) {
     for (int i = 0; i < hand.size(); i++) {
-      Card card = hand.get(i);
+      Card card = (Card) hand.get(i);
       int cardNorthAttack = card.getAttack(Direction.NORTH);
       int cardEastAttack = card.getAttack(Direction.EAST);
       int hardestCardNorthAttack = hardestCardToFlip.getAttack(Direction.NORTH);
@@ -115,7 +115,7 @@ public class Corners implements IThreeTriosStrategy {
 
   private int checkTopLeft(IReadonlyThreeTriosModel model) {
     for (int i = 0; i < hand.size(); i++) {
-      Card card = hand.get(i);
+      Card card = (Card) hand.get(i);
       int cardEastAttack = card.getAttack(Direction.EAST);
       int cardSouthAttack = card.getAttack(Direction.SOUTH);
       int hardestCardEastAttack = hardestCardToFlip.getAttack(Direction.EAST);
