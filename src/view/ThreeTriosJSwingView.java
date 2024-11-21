@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import controller.IPlayerActions;
-import model.ICard;
 import model.IReadonlyThreeTriosModel;
 import model.PlayerColor;
 
