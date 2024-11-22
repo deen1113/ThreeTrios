@@ -52,7 +52,7 @@ public class TestThreeTriosModel {
   @Test
   public void testPlaceCard() {
     model.startGame();
-    Card card = model.getRedHand().get(0);
+    ICard card = model.getRedHand().get(0);
     String name = card.getName();
     model.placeCard(0, 1, 0, PlayerColor.RED);
     Assert.assertEquals(model.getRedHand().size(), 14);
@@ -165,7 +165,7 @@ public class TestThreeTriosModel {
     model.battle(2, 0);
     model.placeCard(2, 2, 0, PlayerColor.RED);
     model.battle(2, 2);
-    Assert.assertEquals(model.determineWinner(), PlayerColor.RED);
+    Assert.assertEquals(model.determineWinner().getColor(), PlayerColor.RED);
   }
 
   // checks that a finished game can determine Blue Player wins
@@ -186,7 +186,7 @@ public class TestThreeTriosModel {
     model.battle(2, 0);
     model.placeCard(2, 2, 0, PlayerColor.BLUE);
     model.battle(2, 2);
-    Assert.assertEquals(model.determineWinner(), PlayerColor.BLUE);
+    Assert.assertEquals(model.determineWinner().getColor(), PlayerColor.BLUE);
   }
 
   // checks that a finished tied game returns null

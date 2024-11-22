@@ -5,13 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import player.HumanPlayer;
+import player.IPlayer;
+
 /**
  * Mock implementation of IReadonlyThreeTriosModel for testing strategies.
  */
 public class MockThreeTriosModel implements IReadonlyThreeTriosModel {
   private final int gridRows;
   private final int gridCols;
-  private final Player redPlayer;
+  private final HumanPlayer redPlayer;
   private List<ICard> redHand;
   private List<ICard> blueHand;
   private final Map<String, Boolean> validMoves;
@@ -30,7 +33,7 @@ public class MockThreeTriosModel implements IReadonlyThreeTriosModel {
     this.blueHand = new ArrayList<>();
     this.validMoves = new HashMap<>();
     this.flippedCardsCount = new HashMap<>();
-    redPlayer = new Player(PlayerColor.RED, redHand);
+    redPlayer = new HumanPlayer((IThreeTriosModel) this, PlayerColor.RED, redHand);
   }
 
   /**
@@ -145,12 +148,12 @@ public class MockThreeTriosModel implements IReadonlyThreeTriosModel {
   }
 
   @Override
-  public Player determineWinner() {
+  public IPlayer determineWinner() {
     return null;
   }
 
   @Override
-  public Player getCurrentPlayer() {
+  public IPlayer getCurrentPlayer() {
     // Return a default player color
     return redPlayer;
   }

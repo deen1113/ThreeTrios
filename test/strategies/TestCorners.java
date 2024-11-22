@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 import model.Card;
+import model.ICard;
 import model.PlayerColor;
 import model.MockThreeTriosModel;
 import strategy.Coord;
@@ -63,8 +64,8 @@ public class TestCorners {
     card1Values.add(5);
     card1Values.add(5);
     card1Values.add(5);
-    Card card1 = new Card("card1", card1Values, PlayerColor.RED);
-    List<Card> redHand = new ArrayList<>();
+    ICard card1 = new Card("card1", card1Values, PlayerColor.RED);
+    List<ICard> redHand = new ArrayList<>();
     redHand.add(card1);
     mockModel.setRedHand(redHand);
 

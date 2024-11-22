@@ -3,7 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.BorderLayout;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import controller.IPlayerActions;
 import model.IReadonlyThreeTriosModel;
@@ -37,7 +37,7 @@ public class ThreeTriosJSwingView extends JFrame implements IThreeTriosJSwingVie
     blueHand = new HandView(Color.CYAN, model.getBlueHand());
     add(blueHand, BorderLayout.EAST);
 
-    gridView = new GridView(model);
+    gridView = new GridView(model, this);
     add(gridView, BorderLayout.CENTER);
   }
 
@@ -53,7 +53,7 @@ public class ThreeTriosJSwingView extends JFrame implements IThreeTriosJSwingVie
     blueHand.updateHand(model.getBlueHand(), !isRedCurrentPlayer);
 
     // Update grid
-    gridView.repaint();
+    gridView.refresh();
 
     revalidate();
     repaint();
@@ -76,6 +76,17 @@ public class ThreeTriosJSwingView extends JFrame implements IThreeTriosJSwingVie
 
   @Override
   public int getSelectedCardIndex() {
+    CardView selectedCardView = getSelectedCardView();
+
+    if (selectedCardView != null) {
+      return selectedCardView.getIndex();
+    } else {
+      throw new IllegalStateException("No card selected.");
+    }
+  }
+
+  @Override
+  public CardView getSelectedCardView() {
     PlayerColor currentPlayerColor = model.getCurrentPlayer().getColor();
     CardView selectedCardView = null;
 
@@ -84,13 +95,30 @@ public class ThreeTriosJSwingView extends JFrame implements IThreeTriosJSwingVie
     } else if (currentPlayerColor.equals(PlayerColor.BLUE)) {
       selectedCardView = blueHand.getSelectedCardView();
     }
-
-    if (selectedCardView != null) {
-      return selectedCardView.getIndex();
-    } else {
-      throw new IllegalStateException("No card selected.");
-    }
+    return selectedCardView;
   }
+
+  @Override
+  public void displayGameWinner() {
+    JOptionPane.showMessageDialog(
+            this,
+         "Winner: " +  model.determineWinner().toString() +
+            "Score: \n" +
+            "Red: " + model.getRedScore() + "\n" +
+            "Blue: " + model.getBlueScore(),
+            "Game over!",
+            JOptionPane.INFORMATION_MESSAGE);
+  }
+
+  @Override
+  public void displayException(Exception e) {
+    JOptionPane.showMessageDialog(
+            this,
+            e.getMessage(),
+            "Error",
+            JOptionPane.ERROR_MESSAGE);
+  }
+
   public void deselectCard() {
     redHand.deselectCard();
     blueHand.deselectCard();

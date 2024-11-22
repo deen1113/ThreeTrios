@@ -17,6 +17,7 @@ import model.PlayerColor;
 public class Corners implements IThreeTriosStrategy {
   ICard hardestCardToFlip;
   List<ICard> hand = new ArrayList<>();
+  IThreeTriosStrategy flipStrategy = new FlipMaxCards();
   int rowIndex = 0;
   int colIndex = 0;
   int cardIdx = -1;
@@ -34,7 +35,7 @@ public class Corners implements IThreeTriosStrategy {
       hand = model.getBlueHand();
       return getBestMove(model);
     }
-    return null;
+    return flipStrategy.chooseMove(model, playerColor);
   }
 
   private Coord getBestMove(IReadonlyThreeTriosModel model) {

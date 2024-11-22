@@ -1,7 +1,8 @@
 package controller;
 
 
-import model.Player;
+import player.IPlayer;
+
 
 /**
  * This interface represents a listener for model status changes.
@@ -15,14 +16,14 @@ public interface ModelListener {
    *
    * @param currentPlayer the player whose turn it now is
    */
-  void onTurnChanged(Player currentPlayer);
+  void onTurnChanged(IPlayer currentPlayer);
 
   /**
    * Called when the game is over.
    *
    * @param winner the player who won the game (null if it's a draw)
    */
-  void onGameOver(Player winner);
+  void onGameOver(IPlayer winner);
 
   /**
    * Called when an invalid move is attempted.

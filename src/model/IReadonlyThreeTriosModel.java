@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+import player.IPlayer;
+
 /**
  * This interface contains all the observation methods necessary for the
  * ThreeTriosModel implementation.
@@ -21,7 +23,7 @@ public interface IReadonlyThreeTriosModel {
    * This includes all the cards they own on the grid and the cards
    * they have remaining in their hand.
    */
-  Player determineWinner();
+  IPlayer determineWinner();
 
   /**
    * Returns a copy of the Red Player's hand.
@@ -134,5 +136,5 @@ public interface IReadonlyThreeTriosModel {
    *
    * @return either PlayerColor RED or BLUE
    */
-  Player getCurrentPlayer();
+  IPlayer getCurrentPlayer();
 }

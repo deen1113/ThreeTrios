@@ -4,18 +4,21 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import player.HumanPlayer;
+import player.IPlayer;
+
 /**
  * This is the implementation of the model for the game Three Trios.
  */
 public class ThreeTriosModel implements IThreeTriosModel {
 
-  private Player currentPlayer;
-  private Player redPlayer;
-  private Player bluePlayer;
-  private List<ICard> redHand;
-  private List<ICard> blueHand;
-  private Deck deck;
-  private Grid grid;
+  private IPlayer currentPlayer;
+  private final IPlayer redPlayer;
+  private final IPlayer bluePlayer;
+  private final List<ICard> redHand;
+  private final List<ICard> blueHand;
+  private final Deck deck;
+  private final Grid grid;
   private GameState gameState;
   private int numFlipped = 0;
   private ICard simCard;
@@ -32,8 +35,8 @@ public class ThreeTriosModel implements IThreeTriosModel {
     this.grid = new Grid(gridFile);
     redHand = new ArrayList<>();
     blueHand = new ArrayList<>();
-    redPlayer = new Player(PlayerColor.RED, redHand);
-    bluePlayer = new Player(PlayerColor.BLUE, blueHand);
+    redPlayer = new HumanPlayer(this, PlayerColor.RED, redHand);
+    bluePlayer = new HumanPlayer(this, PlayerColor.BLUE, blueHand);
     this.currentPlayer = redPlayer;
     gameState = GameState.NOT_STARTED;
   }
@@ -126,7 +129,10 @@ public class ThreeTriosModel implements IThreeTriosModel {
     attackWest(row, col, grid.getCard(row, col).getColor(), false);
 
     gameState = GameState.PLACING;
+  }
 
+  @Override
+  public void updateCurrentPlayer() {
     if (currentPlayer == redPlayer) {
       currentPlayer = bluePlayer;
     } else {
@@ -238,10 +244,10 @@ public class ThreeTriosModel implements IThreeTriosModel {
   }
 
   @Override
-  public Player determineWinner() {
+  public IPlayer determineWinner() {
     int redCount = 0;
     int blueCount = 0;
-    Player winner = null;
+    IPlayer winner = null;
 
     for (int row = 0; row < grid.getGrid().length; row++) {
       for (int col = 0; col < grid.getGrid()[0].length; col++) {
@@ -291,7 +297,7 @@ public class ThreeTriosModel implements IThreeTriosModel {
   }
 
   @Override
-  public Player getCurrentPlayer() {
+  public IPlayer getCurrentPlayer() {
     return currentPlayer;
   }
 

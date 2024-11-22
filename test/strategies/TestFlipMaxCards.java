@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 import model.Card;
+import model.ICard;
 import model.MockThreeTriosModel;
 import model.PlayerColor;
 import strategy.Coord;
@@ -36,7 +37,7 @@ public class TestFlipMaxCards {
     Card card1 = new Card("card1", card1Values, PlayerColor.RED);
     Card card2 = new Card("card2", card2Values, PlayerColor.BLUE);
 
-    List<Card> redHand = new ArrayList<>();
+    List<ICard> redHand = new ArrayList<>();
     redHand.add(card1);
     redHand.add(card2);
 
@@ -80,8 +81,8 @@ public class TestFlipMaxCards {
     card1Values.add(5);
     card1Values.add(5);
     card1Values.add(5);
-    Card card1 = new Card("card1", card1Values, PlayerColor.RED);
-    List<Card> redHand = new ArrayList<>();
+    ICard card1 = new Card("card1", card1Values, PlayerColor.RED);
+    List<ICard> redHand = new ArrayList<>();
     redHand.add(card1);
     mockModel.setRedHand(redHand);
 

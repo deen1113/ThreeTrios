@@ -36,4 +36,10 @@ public interface IThreeTriosModel extends IReadonlyThreeTriosModel {
    * @param col   column index of card placed
    */
   void battle(int row, int col);
+
+  /**
+   * Updates current player. If the current player is RED, changes to BLUE.
+   * If current player is BLUE, changes to RED.
+   */
+  void updateCurrentPlayer();
 }

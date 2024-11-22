@@ -1,16 +1,12 @@
 package view;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import controller.IPlayerActions;
-import model.Card;
 import model.ICard;
 import model.IReadonlyThreeTriosModel;
 import model.PlayerColor;
@@ -21,8 +17,11 @@ import model.PlayerColor;
  * grey cells for holes, and draws cards placed on the grid.
  */
 public class GridView extends JPanel {
-  public final IReadonlyThreeTriosModel model;
+  private final IReadonlyThreeTriosModel model;
+  private final JPanel[][] grid;
+  private final IThreeTriosJSwingView view;
   private IPlayerActions features;
+
 
   /**
    * This is the constructor for the GridView. It takes a model,
@@ -31,70 +30,68 @@ public class GridView extends JPanel {
    *
    * @param model the current model
    */
-  public GridView(IReadonlyThreeTriosModel model) {
+  public GridView(IReadonlyThreeTriosModel model, IThreeTriosJSwingView view) {
     this.model = model;
-    setPreferredSize(new Dimension(500, 500));
+    this.view = view;
+    int rows = model.getGridRowAmount();
+    int cols = model.getGridColAmount();
 
-    addMouseListener(new MouseAdapter() {
-      @Override
-      public void mouseClicked(MouseEvent e) {
-        handleGridClick(e);
+    setLayout(new GridLayout(rows, cols));
+    grid = new JPanel[rows][cols];
+
+    for (int row = 0; row < rows; row++) {
+      for (int col = 0; col < cols; col++) {
+        JPanel cell = new JPanel();
+        cell.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        cell.setBackground(Color.YELLOW);
+
+        int finalRow = row;
+        int finalCol = col;
+        cell.addMouseListener(new MouseAdapter() {
+          @Override
+          public void mouseClicked(MouseEvent e) {
+            if (features != null) {
+              features.onGridCellSelected(finalRow, finalCol);
+              System.out.println("Cell clicked at row: " + finalRow + ", column: " + finalCol);
+            }
+          }
+        });
+
+        grid[row][col] = cell;
+        add(cell);
       }
-    });
+    }
+    refresh();
+    setPreferredSize(new Dimension(500, 500));
   }
 
   public void setFeatures(IPlayerActions features) {
     this.features = features;
   }
 
-  private void handleGridClick(MouseEvent e) {
-    int totalRows = model.getGridRowAmount();
-    int totalCols = model.getGridColAmount();
+  public void refresh() {
+    int rows = model.getGridRowAmount();
+    int cols = model.getGridColAmount();
 
-    int cellWidth = getWidth() / totalCols;
-    int cellHeight = getHeight() / totalRows;
-
-    int col = e.getX() / cellWidth;
-    int row = e.getY() / cellHeight;
-
-    features.onGridCellSelected(row, col);
-
-
-    System.out.println("Cell clicked at row: " + row + ", column: " + col);
-  }
-
-  @Override
-  public void paintComponent(Graphics g) {
-    super.paintComponent(g);
-    Graphics2D g2d = (Graphics2D) g;
-
-    int totalRows = model.getGridRowAmount();
-    int totalCols = model.getGridColAmount();
-
-    int cellWidth = getWidth() / totalCols;
-    int cellHeight = getHeight() / totalRows;
-
-    for (int row = 0; row < totalRows; row++) {
-      for (int col = 0; col < totalCols; col++) {
-        int x = col * cellWidth;
-        int y = row * cellHeight;
+    for (int row = 0; row < rows; row++) {
+      for (int col = 0; col < cols; col++) {
+        JPanel cell = grid[row][col];
+        cell.removeAll();
 
         if (model.getGrid().isHole(row, col)) {
-          g2d.setColor(Color.GRAY);
-          g2d.fillRect(x, y, cellWidth, cellHeight);
+          cell.setBackground(Color.GRAY);
         } else if (model.cellContents(row, col) != null) {
           ICard card = model.cellContents(row, col);
           Color cardColor = card.getColor() == PlayerColor.RED ? Color.PINK : Color.CYAN;
-          g2d.setColor(cardColor);
-          g2d.fillRect(x, y, cellWidth, cellHeight);
-        } else {
-          g2d.setColor(Color.YELLOW);
-          g2d.fillRect(x, y, cellWidth, cellHeight);
-        }
 
-        g2d.setColor(Color.BLACK);
-        g2d.drawRect(x, y, cellWidth, cellHeight);
+          CardView cardView = new CardView(card, cardColor, 0);
+          cell.setLayout(new BorderLayout());
+          cell.add(cardView, BorderLayout.CENTER);
+        } else {
+          cell.setBackground(Color.YELLOW);
+        }
       }
     }
   }
 }
+
