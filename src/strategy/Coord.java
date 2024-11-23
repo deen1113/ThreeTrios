@@ -11,7 +11,8 @@ public class Coord {
 
 
   /**
-   * Constructor for Coord.
+   * Constructor for a Coord.
+   * A strategy returns a Coord with the best row, column, and card to be played.
    *
    * @param bestRow row
    * @param bestCol column

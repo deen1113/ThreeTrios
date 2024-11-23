@@ -2,6 +2,10 @@ package view;
 
 import controller.IPlayerActions;
 
+/**
+ * This interface defines all the common methods between the
+ * multiple different views that are necessary for them to be represented.
+ */
 public interface IView {
   /**
    * Refreshes the view to reflect what the current state

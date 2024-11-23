@@ -1,9 +1,5 @@
 package view;
 
-import controller.IPlayerActions;
-import model.ICard;
-import model.PlayerColor;
-
 /**
  * This interface represents the view for the ThreeTrios game.
  */

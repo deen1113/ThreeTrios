@@ -54,6 +54,7 @@ public class GridView extends JPanel implements IView {
     setPreferredSize(new Dimension(500, 500));
   }
 
+  // Makes cells that represent each GridCell in the grid
   private JPanel makeCell(int row, int col) {
     JPanel cell = new JPanel();
     cell.setBorder(BorderFactory.createLineBorder(Color.BLACK));

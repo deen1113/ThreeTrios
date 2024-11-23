@@ -8,7 +8,8 @@ import model.PlayerColor;
 
 /**
  * This strategy finds the move that flips as many cards
- * as possible with a single move.
+ * as possible with a single move. If there are multiple moves that flip the same
+ * amount of cards, the strategy defaults to playing to the top left most cell.
  */
 public class FlipMaxCards implements IThreeTriosStrategy {
   private int totalFlippedCards = 0;

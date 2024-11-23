@@ -1,6 +1,5 @@
 package controller;
 
-import model.GameState;
 import player.AIPlayer;
 import player.IPlayer;
 import model.IThreeTriosModel;
@@ -56,13 +55,13 @@ public class ThreeTriosController implements IPlayerActions, ModelListener {
       PlayerColor currentPlayerColor = player.getColor();
       player.playCard(row, col, cardIdx, currentPlayerColor);
 
-      // Trigger battle logic (if applicable)
+      // Battle if possible
       model.battle(row, col);
 
       // Update the current player
       model.updateCurrentPlayer();
 
-      // Check for game over condition
+      // Check if game is over
       if (model.isGameOver()) {
         view.displayGameWinner();
       }
@@ -76,7 +75,7 @@ public class ThreeTriosController implements IPlayerActions, ModelListener {
     }
   }
 
-
+  @Override
   public IPlayer getPlayer() {
     return this.player;
   }

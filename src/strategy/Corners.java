@@ -17,7 +17,7 @@ import model.PlayerColor;
 public class Corners implements IThreeTriosStrategy {
   private ICard hardestCardToFlip;
   private List<ICard> hand = new ArrayList<>();
-  private IThreeTriosStrategy flipStrategy = new FlipMaxCards();
+  private final IThreeTriosStrategy flipStrategy = new FlipMaxCards();
   private int rowIndex = 0;
   private int colIndex = 0;
   private int cardIdx = -1;

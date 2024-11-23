@@ -5,6 +5,11 @@ import java.util.List;
 import controller.IPlayerActions;
 import model.ICard;
 
+/**
+ * This is the interface for HandView.
+ * All the necessary methods for the hand to be properly represented
+ * are defined here.
+ */
 public interface IHandView extends IView {
   /**
    * Updates the hand view with the given list of cards.

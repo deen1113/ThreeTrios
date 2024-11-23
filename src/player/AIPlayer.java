@@ -8,12 +8,27 @@ import model.PlayerColor;
 import strategy.Coord;
 import strategy.IThreeTriosStrategy;
 
+/**
+ * This class represents an AI player. An AI player plays a card using a given strategy.
+ * There are two strategies, either flipping the maximum amount of cards or playing to
+ * corners. Every player, either human or AI, has a color and a matching hand.
+ */
 public class AIPlayer implements IPlayer {
   private final IThreeTriosStrategy strategy;
   private final IThreeTriosModel model;
   private final PlayerColor playerColor;
   private final List<ICard> hand;
 
+  /**
+   * This is the constructor for an AI player. An AI player takes a model to play a move,
+   * a strategy to pick the best move to make according to the given strategy,
+   * a hand in order to access their cards, and a color, either red or blue.
+   *
+   * @param model ThreeTrios model
+   * @param strategy given strategy, either FlipMaxCards or Corners
+   * @param color the player's color, either red or blue
+   * @param hand the player's hand
+   */
   public AIPlayer(IThreeTriosModel model, IThreeTriosStrategy strategy,
                   PlayerColor color,  List<ICard> hand) {
     this.strategy = strategy;
