@@ -15,12 +15,12 @@ import model.PlayerColor;
  * The strategy then picks the card with the two highest exposed numbers.
  */
 public class Corners implements IThreeTriosStrategy {
-  ICard hardestCardToFlip;
-  List<ICard> hand = new ArrayList<>();
-  IThreeTriosStrategy flipStrategy = new FlipMaxCards();
-  int rowIndex = 0;
-  int colIndex = 0;
-  int cardIdx = -1;
+  private ICard hardestCardToFlip;
+  private List<ICard> hand = new ArrayList<>();
+  private IThreeTriosStrategy flipStrategy = new FlipMaxCards();
+  private int rowIndex = 0;
+  private int colIndex = 0;
+  private int cardIdx = -1;
 
 
   @Override

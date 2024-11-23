@@ -1,7 +1,10 @@
 package model;
 
+import controller.ModelListener;
+
 /**
  * Interface for the ThreeTriosModel class.
+ * This interface only has the mutable methods.
  */
 public interface IThreeTriosModel extends IReadonlyThreeTriosModel {
   /**
@@ -42,4 +45,11 @@ public interface IThreeTriosModel extends IReadonlyThreeTriosModel {
    * If current player is BLUE, changes to RED.
    */
   void updateCurrentPlayer();
+
+  /**
+   * Registers a listener to the model in order to access notifications.
+   *
+   * @param listener the controller
+   */
+  void setListener(ModelListener listener);
 }

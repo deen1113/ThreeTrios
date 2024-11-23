@@ -1,6 +1,7 @@
 package controller;
 
 import model.ICard;
+import player.IPlayer;
 
 /**
  * This interface represents a listener for player actions in the view.
@@ -22,4 +23,6 @@ public interface IPlayerActions {
    * @param col the column index of the selected cell
    */
   void onGridCellSelected(int row, int col);
+
+  IPlayer getPlayer();
 }

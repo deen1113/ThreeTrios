@@ -11,12 +11,12 @@ import model.PlayerColor;
  * as possible with a single move.
  */
 public class FlipMaxCards implements IThreeTriosStrategy {
-  int totalFlippedCards = 0;
-  int bestRow = 0;
-  int bestCol = 0;
-  int bestCardIndex = -1;
-  int tieCard = -1;
-  int tieCount = 0;
+  private int totalFlippedCards = 0;
+  private int bestRow = 0;
+  private int bestCol = 0;
+  private int bestCardIndex = -1;
+  private int tieCard = -1;
+  private int tieCount = 0;
 
   @Override
   public Coord chooseMove(IReadonlyThreeTriosModel model, PlayerColor playerColor) {

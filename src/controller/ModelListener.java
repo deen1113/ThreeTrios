@@ -17,18 +17,4 @@ public interface ModelListener {
    * @param currentPlayer the player whose turn it now is
    */
   void onTurnChanged(IPlayer currentPlayer);
-
-  /**
-   * Called when the game is over.
-   *
-   * @param winner the player who won the game (null if it's a draw)
-   */
-  void onGameOver(IPlayer winner);
-
-  /**
-   * Called when an invalid move is attempted.
-   *
-   * @param errorMessage a message describing why the move was invalid
-   */
-  void onInvalidMove(String errorMessage);
 }

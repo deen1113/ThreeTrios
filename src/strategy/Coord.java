@@ -5,9 +5,9 @@ package strategy;
  * the best move.
  */
 public class Coord {
-  int row;
-  int col;
-  int card;
+  private final int row;
+  private final int col;
+  private final int card;
 
 
   /**

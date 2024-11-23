@@ -41,21 +41,7 @@ public class GridView extends JPanel {
 
     for (int row = 0; row < rows; row++) {
       for (int col = 0; col < cols; col++) {
-        JPanel cell = new JPanel();
-        cell.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        cell.setBackground(Color.YELLOW);
-
-        int finalRow = row;
-        int finalCol = col;
-        cell.addMouseListener(new MouseAdapter() {
-          @Override
-          public void mouseClicked(MouseEvent e) {
-            if (features != null) {
-              features.onGridCellSelected(finalRow, finalCol);
-              System.out.println("Cell clicked at row: " + finalRow + ", column: " + finalCol);
-            }
-          }
-        });
+        JPanel cell = makeCell(row, col);
 
         grid[row][col] = cell;
         add(cell);
@@ -63,6 +49,23 @@ public class GridView extends JPanel {
     }
     refresh();
     setPreferredSize(new Dimension(500, 500));
+  }
+
+  private JPanel makeCell(int row, int col) {
+    JPanel cell = new JPanel();
+    cell.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    cell.setBackground(Color.YELLOW);
+
+    cell.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        if (features != null) {
+          features.onGridCellSelected(row, col);
+          System.out.println("Cell clicked at row: " + row + ", column: " + col);
+        }
+      }
+    });
+    return cell;
   }
 
   public void setFeatures(IPlayerActions features) {

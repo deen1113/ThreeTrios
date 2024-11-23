@@ -5,6 +5,7 @@ import java.util.List;
 import model.ICard;
 import model.IThreeTriosModel;
 import model.PlayerColor;
+import strategy.Coord;
 import strategy.IThreeTriosStrategy;
 
 public class AIPlayer implements IPlayer {
@@ -33,6 +34,9 @@ public class AIPlayer implements IPlayer {
 
   @Override
   public void playCard(int row, int col, int handIndex, PlayerColor color) {
-    strategy.chooseMove(model, playerColor);
+    int playRow = strategy.chooseMove(model, playerColor).getRow();
+    int playCol = strategy.chooseMove(model, playerColor).getCol();
+    int cardIndex = strategy.chooseMove(model, playerColor).getCardIndex();
+    model.placeCard(playRow, playCol, cardIndex, color);
   }
 }

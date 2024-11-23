@@ -29,6 +29,7 @@ public final class ThreeTrios {
     IPlayer player1 = null;
     IPlayer player2 = null;
 
+
     if (args.length != 2) {
       throw new IllegalArgumentException("Wrong number of arguments");
     }
@@ -68,16 +69,23 @@ public final class ThreeTrios {
     ThreeTriosController controller1 = new ThreeTriosController(model, player1View, player1);
     ThreeTriosController controller2 = new ThreeTriosController(model, player2View, player2);
 
-    model.startGame();
+    model.setListener(controller1);
+    model.setListener(controller2);
 
     player1View.setFeatures(controller1);
-    player1View.setVisible(true);
+    if (player1 instanceof HumanPlayer) {
+      player1View.setVisible(true);
+    }
     player1View.pack();
     player1View.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     player2View.setFeatures(controller2);
-    player2View.setVisible(true);
+    if (player2 instanceof HumanPlayer) {
+      player2View.setVisible(true);
+    }
     player2View.pack();
     player2View.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    model.startGame();
   }
 }

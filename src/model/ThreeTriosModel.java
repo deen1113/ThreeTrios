@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.ModelListener;
 import player.HumanPlayer;
 import player.IPlayer;
 
@@ -22,6 +23,7 @@ public class ThreeTriosModel implements IThreeTriosModel {
   private GameState gameState;
   private int numFlipped = 0;
   private ICard simCard;
+  private final List<ModelListener> listeners;
 
   /**
    * Constructor for the ThreeTriosModel.
@@ -39,6 +41,7 @@ public class ThreeTriosModel implements IThreeTriosModel {
     bluePlayer = new HumanPlayer(this, PlayerColor.BLUE, blueHand);
     this.currentPlayer = redPlayer;
     gameState = GameState.NOT_STARTED;
+    this.listeners = new ArrayList<>();
   }
 
   @Override
@@ -62,7 +65,19 @@ public class ThreeTriosModel implements IThreeTriosModel {
       );
     }
     fillHands();
+
+    notifyTurn(currentPlayer);
     gameState = GameState.PLACING;
+  }
+
+  public void setListener(ModelListener listener) {
+    listeners.add(listener);
+  }
+
+  private void notifyTurn(IPlayer player) {
+      for (ModelListener listener : listeners) {
+        listener.onTurnChanged(player);
+      }
   }
 
   @Override
@@ -138,6 +153,8 @@ public class ThreeTriosModel implements IThreeTriosModel {
     } else {
       currentPlayer = redPlayer;
     }
+
+    notifyTurn(currentPlayer);
   }
 
   private void attackNorth(int row, int col, PlayerColor color, boolean isSim) {

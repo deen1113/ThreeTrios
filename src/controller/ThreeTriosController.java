@@ -1,11 +1,13 @@
 package controller;
 
+import model.GameState;
+import player.AIPlayer;
 import player.IPlayer;
 import model.IThreeTriosModel;
 import model.PlayerColor;
 import view.IThreeTriosJSwingView;
 
-public class ThreeTriosController implements IPlayerActions {
+public class ThreeTriosController implements IPlayerActions, ModelListener {
   private final IThreeTriosModel model;
   private final IThreeTriosJSwingView view;
   private final IPlayer player;
@@ -15,33 +17,77 @@ public class ThreeTriosController implements IPlayerActions {
     this.view = view;
     this.player = player;
     this.view.setFeatures(this);
+    this.model.setListener(this);
   }
 
   @Override
   public void onCardSelected() {
-    if (view.getSelectedCardIndex() > -1) {
-      view.getSelectedCardIndex();
-    } else {
-      throw new IllegalArgumentException("Cannot select card when it's not your turn");
+    try {
+      if (!model.getCurrentPlayer().getColor().equals(player.getColor())) {
+        throw new IllegalArgumentException("It's not your turn!");
+      }
+
+      int selectedCardIndex = view.getSelectedCardIndex();
+      if (selectedCardIndex == -1) {
+        throw new IllegalArgumentException("No card selected!");
+      }
+
+      System.out.println("Card selected: " + selectedCardIndex);
+
+    } catch (Exception e) {
+      view.displayException(e);
     }
   }
+
 
   @Override
   public void onGridCellSelected(int row, int col) {
     try {
-      int cardIdx = this.view.getSelectedCardIndex();
-      PlayerColor currentPlayerColor = this.model.getCurrentPlayer().getColor();
-      this.player.playCard(row, col, cardIdx, currentPlayerColor);
-      this.model.battle(row, col);
-      this.model.updateCurrentPlayer();
-
-      if (model.isGameOver()) {
-        this.view.displayGameWinner();
+      if (!model.getCurrentPlayer().getColor().equals(player.getColor())) {
+        throw new IllegalStateException("It's not your turn!");
       }
 
-      this.view.refresh();
+      int cardIdx = view.getSelectedCardIndex();
+      if (cardIdx == -1) {
+        throw new IllegalStateException("No card selected!");
+      }
+
+      // Play the card
+      PlayerColor currentPlayerColor = player.getColor();
+      player.playCard(row, col, cardIdx, currentPlayerColor);
+
+      // Trigger battle logic (if applicable)
+      model.battle(row, col);
+
+      // Update the current player
+      model.updateCurrentPlayer();
+
+      // Check for game over condition
+      if (model.isGameOver()) {
+        view.displayGameWinner();
+      }
+
+      // Refresh view
+      view.refresh();
+
     } catch (Exception e) {
-      this.view.displayException(e);
+      // Display any exceptions in the view
+      view.displayException(e);
     }
+  }
+
+
+  public IPlayer getPlayer() {
+    return this.player;
+  }
+
+  @Override
+  public void onTurnChanged(IPlayer currentPlayer) {
+//    if (player instanceof AIPlayer && model.getGameState() == GameState.PLACING) {
+//      // params dont matter to AIPlayer
+//      player.playCard(0, 0, 0, player.getColor());
+//    }
+
+    view.refresh();
   }
 }
