@@ -83,11 +83,10 @@ public class ThreeTriosController implements IPlayerActions, ModelListener {
 
   @Override
   public void onTurnChanged(IPlayer currentPlayer) {
-//    if (player instanceof AIPlayer && model.getGameState() == GameState.PLACING) {
-//      // params dont matter to AIPlayer
-//      player.playCard(0, 0, 0, player.getColor());
-//    }
-
     view.refresh();
+
+    if (currentPlayer instanceof AIPlayer) {
+      player.playCard(0, 0, 0, player.getColor());
+    }
   }
 }

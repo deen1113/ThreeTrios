@@ -19,11 +19,11 @@ import java.util.List;
 /**
  * This class implements the hand's view.
  */
-public class HandView extends JPanel {
+public class HandView extends JPanel implements IHandView {
 
   private IPlayerActions features;
   private CardView selectedCardView;
-  private Color color;
+  private final Color color;
   private boolean isCurrentPlayer;
 
   /**
@@ -43,13 +43,7 @@ public class HandView extends JPanel {
     updateHand(hand, false);
   }
 
-  /**
-   * Updates the hand view with the given list of cards.
-   * This method rebuilds the hand display and sets interactivity based on whether it's the current player's hand.
-   *
-   * @param hand             the player's hand
-   * @param isCurrentPlayer  true if this hand belongs to the current player, false otherwise
-   */
+  @Override
   public void updateHand(List<ICard> hand, boolean isCurrentPlayer) {
     this.isCurrentPlayer = isCurrentPlayer;
 
@@ -111,27 +105,22 @@ public class HandView extends JPanel {
     System.out.println("Selected card: " + selectedCardView.getName());
   }
 
-  /**
-   * Gets the selected CardView.
-   *
-   * @return the selected CardView, or null if no card is selected
-   */
+  @Override
   public CardView getSelectedCardView() {
     return selectedCardView;
   }
 
-  /**
-   * Sets the features object to enable communication with the controller.
-   *
-   * @param features the controller implementing IPlayerActions
-   */
+  @Override
+  public void refresh() {
+    repaint();
+  }
+
+  @Override
   public void setFeatures(IPlayerActions features) {
     this.features = features;
   }
 
-  /**
-   * Deselects the currently selected card, if any.
-   */
+  @Override
   public void deselectCard() {
     if (selectedCardView != null) {
       selectedCardView.setBorder(null);

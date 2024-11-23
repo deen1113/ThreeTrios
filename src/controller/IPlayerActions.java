@@ -1,6 +1,5 @@
 package controller;
 
-import model.ICard;
 import player.IPlayer;
 
 /**
@@ -24,5 +23,10 @@ public interface IPlayerActions {
    */
   void onGridCellSelected(int row, int col);
 
+  /**
+   * Gets the player associated with this controller.
+   *
+   * @return the player
+   */
   IPlayer getPlayer();
 }

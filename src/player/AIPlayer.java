@@ -34,9 +34,10 @@ public class AIPlayer implements IPlayer {
 
   @Override
   public void playCard(int row, int col, int handIndex, PlayerColor color) {
-    int playRow = strategy.chooseMove(model, playerColor).getRow();
-    int playCol = strategy.chooseMove(model, playerColor).getCol();
-    int cardIndex = strategy.chooseMove(model, playerColor).getCardIndex();
+    Coord coord = strategy.chooseMove(model, playerColor);
+    int playRow = coord.getRow();
+    int playCol = coord.getCol();
+    int cardIndex = coord.getCardIndex();
     model.placeCard(playRow, playCol, cardIndex, color);
   }
 }

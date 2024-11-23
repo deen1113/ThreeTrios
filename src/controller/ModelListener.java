@@ -13,6 +13,8 @@ public interface ModelListener {
 
   /**
    * Called when the active player changes.
+   * This method refreshes both views when the turn changes,
+   * keeping both views updated to the current game state.
    *
    * @param currentPlayer the player whose turn it now is
    */

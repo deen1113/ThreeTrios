@@ -70,10 +70,20 @@ public class CardView extends JPanel {
     return path;
   }
 
+  /**
+   * Gets the index of this CardView's place in hand.
+   *
+   * @return card's index in hand
+   */
   public int getIndex() {
     return index;
   }
 
+  /**
+   * Gets the card this CardView represents.
+   *
+   * @return this card
+   */
   public ICard getCard() {
     return this.card;
   }

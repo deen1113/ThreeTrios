@@ -1,10 +1,15 @@
 package view;
 
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.GridLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.BorderLayout;
 
-import javax.swing.*;
+
+import javax.swing.JPanel;
+import javax.swing.BorderFactory;
 
 import controller.IPlayerActions;
 import model.ICard;
@@ -16,10 +21,9 @@ import model.PlayerColor;
  * The grid creates a Yellow cell for empty card cells,
  * grey cells for holes, and draws cards placed on the grid.
  */
-public class GridView extends JPanel {
+public class GridView extends JPanel implements IView {
   private final IReadonlyThreeTriosModel model;
   private final JPanel[][] grid;
-  private final IThreeTriosJSwingView view;
   private IPlayerActions features;
 
 
@@ -32,7 +36,6 @@ public class GridView extends JPanel {
    */
   public GridView(IReadonlyThreeTriosModel model, IThreeTriosJSwingView view) {
     this.model = model;
-    this.view = view;
     int rows = model.getGridRowAmount();
     int cols = model.getGridColAmount();
 
@@ -68,10 +71,12 @@ public class GridView extends JPanel {
     return cell;
   }
 
+  @Override
   public void setFeatures(IPlayerActions features) {
     this.features = features;
   }
 
+  @Override
   public void refresh() {
     int rows = model.getGridRowAmount();
     int cols = model.getGridColAmount();
