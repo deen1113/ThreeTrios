@@ -23,6 +23,14 @@ battling cards on the grid.
 4. **Player Turns** - Alternates between players and tracks the current player.
 5. **Win Condition Checking** - Determines if the game has ended and which player won.
 
+### Quick Start
+
+Write two textfiles with the specified formation below, one for the grid and one for the deck. 
+Configure a file in main with 2 words, either human, strategy1, or strategy2.
+If both words are human, the game will launch a 1v1 game with two controllers.
+If one of the words is a strategy, the game will launch one controller.[Archive.zip](Archive.zip)
+If both of the words are strategies, the game will play but will not be viewable.
+
 ### Card & Grid Files
 
 To set up a Three Trios game, the deck and grid take in file representations to use.
