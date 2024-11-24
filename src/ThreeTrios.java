@@ -42,27 +42,21 @@ public final class ThreeTrios {
       throw new RuntimeException(e);
     }
 
-    switch (args[0].toLowerCase()) {
-      case "human":
-        player1 = new HumanPlayer(model, PlayerColor.RED, model.getRedHand());
-        break;
-      case "strategy1":
-        player1 = new AIPlayer(model, new FlipMaxCards(), PlayerColor.RED, model.getRedHand());
-        break;
-      case "strategy2":
-        player1 = new AIPlayer(model, new Corners(), PlayerColor.RED, model.getRedHand());
-    }
+    player1 = switch (args[0].toLowerCase()) {
+      case "human" -> new HumanPlayer(model, PlayerColor.RED, model.getRedHand());
+      case "strategy1" ->
+              new AIPlayer(model, new FlipMaxCards(), PlayerColor.RED, model.getRedHand());
+      case "strategy2" -> new AIPlayer(model, new Corners(), PlayerColor.RED, model.getRedHand());
+      default -> player1;
+    };
 
-    switch (args[1].toLowerCase()) {
-      case "human":
-        player2 = new HumanPlayer(model, PlayerColor.BLUE, model.getBlueHand());
-        break;
-      case "strategy1":
-        player2 = new AIPlayer(model, new FlipMaxCards(), PlayerColor.BLUE, model.getBlueHand());
-        break;
-      case "strategy2":
-        player2 = new AIPlayer(model, new Corners(), PlayerColor.BLUE, model.getBlueHand());
-    }
+    player2 = switch (args[1].toLowerCase()) {
+      case "human" -> new HumanPlayer(model, PlayerColor.BLUE, model.getBlueHand());
+      case "strategy1" ->
+              new AIPlayer(model, new FlipMaxCards(), PlayerColor.BLUE, model.getBlueHand());
+      case "strategy2" -> new AIPlayer(model, new Corners(), PlayerColor.BLUE, model.getBlueHand());
+      default -> player2;
+    };
 
     ThreeTriosJSwingView player1View = new ThreeTriosJSwingView(model);
     ThreeTriosJSwingView player2View = new ThreeTriosJSwingView(model);

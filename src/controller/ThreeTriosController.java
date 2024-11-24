@@ -6,11 +6,26 @@ import model.IThreeTriosModel;
 import model.PlayerColor;
 import view.IThreeTriosJSwingView;
 
+/**
+ * This is the controller for the ThreeTrios game. The controller listens to the model and
+ * view and responds when the player clicks on the view and or the model sends an update.
+ * The player can click on a card in the hands or on the grid.
+ */
 public class ThreeTriosController implements IPlayerActions, ModelListener {
   private final IThreeTriosModel model;
   private final IThreeTriosJSwingView view;
   private final IPlayer player;
 
+  /**
+   * The constructor for the controller takes in a model and view in order to
+   * subscribe as a listener. The controller also uses the model to get necessary
+   * information about the game state. The controller is also assigned a player,
+   * and the player can only use their assigned controller.
+   *
+   * @param model ThreeTrios model
+   * @param view ThreeTrios view
+   * @param player assigned player for the controller
+   */
   public ThreeTriosController(IThreeTriosModel model, IThreeTriosJSwingView view, IPlayer player) {
     this.model = model;
     this.view = view;

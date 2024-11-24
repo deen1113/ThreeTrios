@@ -13,7 +13,8 @@ import model.ICard;
 public interface IHandView extends IView {
   /**
    * Updates the hand view with the given list of cards.
-   * This method rebuilds the hand display and sets interactivity based on whether it's the current player's hand.
+   * This method rebuilds the hand display and sets interactivity based on whether
+   * it's the current player's hand.
    *
    * @param hand             the player's hand
    * @param isCurrentPlayer  true if this hand belongs to the current player, false otherwise

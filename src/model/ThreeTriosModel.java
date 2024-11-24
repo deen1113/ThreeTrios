@@ -13,17 +13,17 @@ import player.IPlayer;
  */
 public class ThreeTriosModel implements IThreeTriosModel {
 
-  private IPlayer currentPlayer;
   private final IPlayer redPlayer;
   private final IPlayer bluePlayer;
   private final List<ICard> redHand;
   private final List<ICard> blueHand;
   private final Deck deck;
   private final Grid grid;
+  private final List<ModelListener> listeners;
+  private IPlayer currentPlayer;
   private GameState gameState;
   private int numFlipped = 0;
   private ICard simCard;
-  private final List<ModelListener> listeners;
 
   /**
    * Constructor for the ThreeTriosModel.
@@ -75,9 +75,9 @@ public class ThreeTriosModel implements IThreeTriosModel {
   }
 
   private void notifyTurn(IPlayer player) {
-      for (ModelListener listener : listeners) {
-        listener.onTurnChanged(player);
-      }
+    for (ModelListener listener : listeners) {
+      listener.onTurnChanged(player);
+    }
   }
 
   @Override
@@ -335,7 +335,7 @@ public class ThreeTriosModel implements IThreeTriosModel {
 
   @Override
   public PlayerColor playedCardColor(int row, int col) {
-    if (grid.getCard(row, col) ==  null) {
+    if (grid.getCard(row, col) == null) {
       return null;
     }
     return grid.getCard(row, col).getColor();

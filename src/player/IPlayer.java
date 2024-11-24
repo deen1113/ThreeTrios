@@ -5,6 +5,10 @@ import java.util.List;
 import model.ICard;
 import model.PlayerColor;
 
+/**
+ * The interface for the player classes. A player should be able to get their color
+ * and hand. They should also be able to play a card to any available space on the grid.
+ */
 public interface IPlayer {
   /**
    * Gives this player's color, either red or blue.
@@ -27,10 +31,10 @@ public interface IPlayer {
    * parameters are ignored and the method uses the player's strategy to
    * make a move.
    *
-   * @param row played row
-   * @param col played column
+   * @param row       played row
+   * @param col       played column
    * @param handIndex played card index in hand
-   * @param color player's color
+   * @param color     player's color
    */
   void playCard(int row, int col, int handIndex, PlayerColor color);
 }
