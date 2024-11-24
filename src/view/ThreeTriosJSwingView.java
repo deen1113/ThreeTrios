@@ -44,7 +44,10 @@ public class ThreeTriosJSwingView extends JFrame implements IThreeTriosJSwingVie
   @Override
   public void refresh() {
     PlayerColor currentPlayerColor = model.getCurrentPlayer().getColor();
-    setTitle("Current Player: " + currentPlayerColor);
+    setTitle(features.getPlayer().getColor() +
+            " Side: " +
+            "Current Player: " +
+            currentPlayerColor);
 
     boolean isRedCurrentPlayer = currentPlayerColor == PlayerColor.RED;
     System.out.println("Refreshing view. Current player: " + currentPlayerColor);

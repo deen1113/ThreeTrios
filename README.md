@@ -28,8 +28,56 @@ battling cards on the grid.
 Write two textfiles with the specified formation below, one for the grid and one for the deck. 
 Configure a file in main with 2 words, either human, strategy1, or strategy2.
 If both words are human, the game will launch a 1v1 game with two controllers.
-If one of the words is a strategy, the game will launch one controller.[Archive.zip](Archive.zip)
+If one of the words is a strategy, the game will launch one controller.
 If both of the words are strategies, the game will play but will not be viewable.
+
+### Source Organization
+
+
+Project: ThreeTrios\
+├── src/\
+│   ├── controller/\
+│   │   ├── ModelListener.java\
+│   │   ├── IPlayerActions.java\
+│   │   └── ThreeTriosController.java\
+│   ├── model/\
+│   │   ├── IThreeTriosModel.java\
+│   │   ├── PlayerColor.java\
+│   │   ├── ICard.java\
+│   │   ├── Grid.java\
+│   │   ├── Card.java\
+│   │   ├── ThreeTriosModel.java\
+│   │   ├── Deck.java\
+│   │   ├── GridCell.java\
+│   │   ├── GameState.java\
+│   │   ├── Direction.java\
+│   │   └── IReadonlyThreeTriosModel.java\
+│   ├── view/\
+│   │   ├── IThreeTriosJSwingView.java\
+│   │   ├── ThreeTriosView.java\
+│   │   ├── GridView.java\
+│   │   ├── IView.java\
+│   │   ├── HandView.java\
+│   │   ├── ThreeTriosJSwingView.java\
+│   │   ├── CardView.java\
+│   │   └── IHandView.java\
+│   ├── player/\
+│   │   ├── AIPlayer.java\
+│   │   ├── HumanPlayer.java\
+│   │   └── IPlayer.java\
+│   └── strategy/\
+│       ├── IThreeTriosStrategy.java\
+│       ├── Coord.java\
+│       ├── FlipMaxCards.java\
+│       └── Corners.java\
+└── test/\
+├── strategies/\
+│   ├── TestFlipMaxCards.java\
+│   └── TestCorners.java\
+└── model/\
+├── TestThreeTriosModel.java\
+└── MockThreeTriosModel.java\
+
 
 ### Card & Grid Files
 
@@ -52,11 +100,20 @@ The first two integers represent the number of rows and columns, respectively.\
 C is a valid card cell and X is a hole.
 
 ## Classes
-
+#### MODEL
 - **Card**: Represents a single card in the game.
 - **Deck**: Represents a list of cards. 
 - **Grid**: Represents the board where the game is played.
 - **GridCell**: Represents a single cell in the grid.
+- **ThreeTriosModel**: The model where the magic happens.
+#### VIEW
+- **CardView**: Represents the view of a single card.
+- **GridView**: Represents the view of the grid.
+- **HandView**: Represents the view of the hands on either side.
+- **ThreeTriosJSwingView**: The interactable GUI view.
+- **ThreeTriosView**: The text view version of the game.
+#### CONTROLLER
+- **ThreeTriosController**: The main controller for the game.
 
 ## Enums
 - **Direction**: Represents each direction a card can attack or defend from.
