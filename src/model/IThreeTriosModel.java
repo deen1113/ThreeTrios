@@ -41,6 +41,13 @@ public interface IThreeTriosModel extends IReadonlyThreeTriosModel {
   void battle(int row, int col);
 
   /**
+   * Shuffles the deck
+   *
+   * @param deck the given deck
+   */
+  void shuffle(IDeck deck);
+
+  /**
    * Updates current player. If the current player is RED, changes to BLUE.
    * If current player is BLUE, changes to RED.
    */

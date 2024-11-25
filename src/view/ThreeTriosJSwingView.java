@@ -38,7 +38,7 @@ public class ThreeTriosJSwingView extends JFrame implements IThreeTriosJSwingVie
     blueHand = new HandView(Color.CYAN, model.getBlueHand());
     add(blueHand, BorderLayout.EAST);
 
-    gridView = new GridView(model, this);
+    gridView = new GridView(model);
     add(gridView, BorderLayout.CENTER);
   }
 

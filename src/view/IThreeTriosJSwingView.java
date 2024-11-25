@@ -2,6 +2,10 @@ package view;
 
 /**
  * This interface represents the view for the ThreeTrios game.
+ * The view has registers three panels, one for each hand and
+ * one for the grid.
+ * It can handle mouse clicks for clicking cards and placing them on the grid.
+ * It can also display any exceptions and show the winner when the game is finished.
  */
 public interface IThreeTriosJSwingView extends IView {
   /**

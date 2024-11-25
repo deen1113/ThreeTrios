@@ -3,7 +3,7 @@ package model;
 /**
  * Represents a cell in the grid of the game.
  */
-public class GridCell {
+public class GridCell implements IGridCell {
   private boolean isHole;
   private ICard card;
 
@@ -18,29 +18,17 @@ public class GridCell {
     this.card = null;
   }
 
-  /**
-   * Checks if the cell is a hole.
-   *
-   * @return returns true if cell is a hole and false if not
-   */
+  @Override
   public boolean isHole() {
     return isHole;
   }
 
-  /**
-   * Gets the card in the cell.
-   *
-   * @return returns the card in the cell specified
-   */
+  @Override
   public ICard getCard() {
     return card;
   }
 
-  /**
-   * Sets the card in the cell.
-   *
-   * @param card the card to be placed in the cell
-   */
+  @Override
   public void setCard(ICard card) {
     this.card = card;
     this.isHole = false;

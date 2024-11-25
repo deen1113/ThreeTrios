@@ -7,7 +7,7 @@ import java.util.Scanner;
 /**
  * Represents the grid of the game.
  */
-public class Grid {
+public class Grid implements IGrid {
   private final GridCell[][] grid;
 
   /**
@@ -22,6 +22,7 @@ public class Grid {
   public Grid(String fileGrid) throws FileNotFoundException {
     this.grid = loadGridFromFile(fileGrid);
   }
+
 
   private GridCell[][] loadGridFromFile(String filePath) throws FileNotFoundException {
     File file = new File(filePath);
@@ -55,33 +56,17 @@ public class Grid {
     return grid;
   }
 
-  /**
-   * Returns the grid.
-   *
-   * @return an array of grid cells
-   */
+ @Override
   public GridCell[][] getGrid() {
     return grid;
   }
 
-  /**
-   * Sets the card in the grid cell.
-   *
-   * @param row  the row index of the cell
-   * @param col  the column index of the cell
-   * @param card the card being played
-   */
+  @Override
   public void setCard(int row, int col, ICard card) {
     grid[row][col].setCard(card);
   }
 
-  /**
-   * Returns the card in the grid cell.
-   *
-   * @param row the row index of the cell
-   * @param col the column index of the cell
-   * @return the card in the cell
-   */
+  @Override
   public Card getCard(int row, int col) {
     Card card;
     try {
@@ -92,13 +77,7 @@ public class Grid {
     return card;
   }
 
-  /**
-   * Checks if the grid cell is a hole.
-   *
-   * @param row the row index of the cell
-   * @param col the column index of the cell
-   * @return true if the cell is a hole and false if not
-   */
+  @Override
   public boolean isHole(int row, int col) {
     try {
       return grid[row][col].isHole();
@@ -107,11 +86,7 @@ public class Grid {
     }
   }
 
-  /**
-   * Returns the number of card cells in the grid.
-   *
-   * @return the number of cells that are NOT holes
-   */
+  @Override
   public int getNumCardCells() {
     int numCardCells = 0;
     for (int row = 0; row < grid.length; row++) {

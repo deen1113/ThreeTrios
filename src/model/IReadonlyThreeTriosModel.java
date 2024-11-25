@@ -56,7 +56,7 @@ public interface IReadonlyThreeTriosModel {
    *
    * @return the grid
    */
-  Grid getGrid();
+  IGrid getGrid();
 
   /**
    * Returns whether a move is valid at a cell given the cell's row

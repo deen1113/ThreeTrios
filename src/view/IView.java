@@ -5,6 +5,8 @@ import controller.IPlayerActions;
 /**
  * This interface defines all the common methods between the
  * multiple different views that are necessary for them to be represented.
+ * The GridView is fully implemented with these two methods, while the
+ * HandView and MainView still need more methods.
  */
 public interface IView {
   /**

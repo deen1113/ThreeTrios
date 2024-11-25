@@ -17,8 +17,8 @@ public class ThreeTriosModel implements IThreeTriosModel {
   private final IPlayer bluePlayer;
   private final List<ICard> redHand;
   private final List<ICard> blueHand;
-  private final Deck deck;
-  private final Grid grid;
+  private final IDeck deck;
+  private final IGrid grid;
   private final List<ModelListener> listeners;
   private IPlayer currentPlayer;
   private GameState gameState;
@@ -78,6 +78,11 @@ public class ThreeTriosModel implements IThreeTriosModel {
     for (ModelListener listener : listeners) {
       listener.onTurnChanged(player);
     }
+  }
+
+  @Override
+  public void shuffle(IDeck deck) {
+    deck.shuffle();
   }
 
   @Override
@@ -268,7 +273,7 @@ public class ThreeTriosModel implements IThreeTriosModel {
 
     for (int row = 0; row < grid.getGrid().length; row++) {
       for (int col = 0; col < grid.getGrid()[0].length; col++) {
-        Card card = grid.getCard(row, col);
+        ICard card = grid.getCard(row, col);
         if (card != null) {
           if (card.getColor() == PlayerColor.RED) {
             redCount++;
@@ -309,7 +314,7 @@ public class ThreeTriosModel implements IThreeTriosModel {
   }
 
   @Override
-  public Grid getGrid() {
+  public IGrid getGrid() {
     return this.grid;
   }
 
@@ -346,7 +351,7 @@ public class ThreeTriosModel implements IThreeTriosModel {
     int redCount = 0;
     for (int row = 0; row < grid.getGrid().length; row++) {
       for (int col = 0; col < grid.getGrid()[0].length; col++) {
-        Card card = grid.getCard(row, col);
+        ICard card = grid.getCard(row, col);
         if (card != null) {
           if (card.getColor() == PlayerColor.RED) {
             redCount++;
@@ -363,7 +368,7 @@ public class ThreeTriosModel implements IThreeTriosModel {
     int blueCount = 0;
     for (int row = 0; row < grid.getGrid().length; row++) {
       for (int col = 0; col < grid.getGrid()[0].length; col++) {
-        Card card = grid.getCard(row, col);
+        ICard card = grid.getCard(row, col);
         if (card != null) {
           if (card.getColor() == PlayerColor.BLUE) {
             blueCount++;
@@ -376,7 +381,7 @@ public class ThreeTriosModel implements IThreeTriosModel {
   }
 
   @Override
-  public Card cellContents(int row, int col) {
+  public ICard cellContents(int row, int col) {
     return grid.getCard(row, col);
   }
 

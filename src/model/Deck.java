@@ -9,8 +9,9 @@ import java.util.Scanner;
 
 /**
  * Represents a deck of cards. A deck is a list of cards that can be shuffled and drawn from.
+ * The deck takes in files from a deck file format as specified in the README.
  */
-public class Deck {
+public class Deck implements IDeck{
 
   private final List<Card> deck;
 
@@ -58,27 +59,17 @@ public class Deck {
     return cards;
   }
 
-  /**
-   * Shuffles the deck.
-   */
+  @Override
   public void shuffle() {
     Collections.shuffle(deck);
   }
 
-  /**
-   * Returns the deck of cards.
-   *
-   * @return a list of cards
-   */
+  @Override
   public List<Card> getDeck() {
     return deck;
   }
 
-  /**
-   * Draws a card from the deck.
-   *
-   * @return the drawn card
-   */
+  @Override
   public Card draw() {
     return deck.remove(0);
   }

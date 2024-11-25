@@ -9,6 +9,8 @@ import model.ICard;
  * This is the interface for HandView.
  * All the necessary methods for the hand to be properly represented
  * are defined here.
+ * A hand is represented by a list of CardViews, positioned on the sides of the main view.
+ * Each hand listens for a click, and can return the selected card.
  */
 public interface IHandView extends IView {
   /**

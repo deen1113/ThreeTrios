@@ -16,7 +16,7 @@ import model.ICard;
 /**
  * This class implements the view for each individual card.
  */
-public class CardView extends JPanel {
+public class CardView extends JPanel implements ICardView {
   private final Color color;
   private final ICard card;
   private final int index;
@@ -70,20 +70,12 @@ public class CardView extends JPanel {
     return path;
   }
 
-  /**
-   * Gets the index of this CardView's place in hand.
-   *
-   * @return card's index in hand
-   */
+  @Override
   public int getIndex() {
     return index;
   }
 
-  /**
-   * Gets the card this CardView represents.
-   *
-   * @return this card
-   */
+  @Override
   public ICard getCard() {
     return this.card;
   }

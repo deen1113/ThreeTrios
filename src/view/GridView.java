@@ -34,7 +34,7 @@ public class GridView extends JPanel implements IView {
    *
    * @param model the current model
    */
-  public GridView(IReadonlyThreeTriosModel model, IThreeTriosJSwingView view) {
+  public GridView(IReadonlyThreeTriosModel model) {
     this.model = model;
     int rows = model.getGridRowAmount();
     int cols = model.getGridColAmount();

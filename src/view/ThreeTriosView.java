@@ -1,5 +1,6 @@
 package view;
 
+import model.ICard;
 import model.ThreeTriosModel;
 import model.Card;
 import model.PlayerColor;
@@ -36,7 +37,7 @@ public class ThreeTriosView {
         if (model.getGrid().isHole(row, col)) {
           builder.append(" ");
         } else {
-          Card card = model.getGrid().getCard(row, col);
+          ICard card = model.getGrid().getCard(row, col);
           if (card == null) {
             builder.append("_");
           } else {

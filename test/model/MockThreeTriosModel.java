@@ -118,7 +118,7 @@ public class MockThreeTriosModel implements IReadonlyThreeTriosModel {
   }
 
   @Override
-  public Grid getGrid() {
+  public IGrid getGrid() {
     return null;
   }
 
