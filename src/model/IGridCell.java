@@ -16,7 +16,7 @@ public interface IGridCell {
   /**
    * Gets the card in the cell.
    *
-   * @return returns the card in the cell specified
+   * @return returns the card object as specified
    */
   ICard getCard();
 

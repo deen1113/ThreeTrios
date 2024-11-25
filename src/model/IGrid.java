@@ -10,12 +10,12 @@ public interface IGrid {
   /**
    * Returns the grid.
    *
-   * @return an array of grid cells
+   * @return a 2-dimensional array of grid cells
    */
   GridCell[][] getGrid();
 
   /**
-   * Sets the card in the grid cell.
+   * Sets the card in the grid cell at the given coordinates.
    *
    * @param row  the row index of the cell
    * @param col  the column index of the cell
@@ -24,7 +24,7 @@ public interface IGrid {
   void setCard(int row, int col, ICard card);
 
   /**
-   * Returns the card in the grid cell.
+   * Returns the card in the grid cell with the given coordinates.
    *
    * @param row the row index of the cell
    * @param col the column index of the cell
@@ -33,7 +33,7 @@ public interface IGrid {
   ICard getCard(int row, int col);
 
   /**
-   * Checks if the grid cell is a hole.
+   * Checks if the grid cell is a hole at the given coordinates.
    *
    * @param row the row index of the cell
    * @param col the column index of the cell
