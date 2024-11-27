@@ -31,8 +31,28 @@ If both words are human, the game will launch a 1v1 game with two controllers.
 If one of the words is a strategy, the game will launch one controller.
 If both of the words are strategies, the game will play but will not be viewable.
 
-### Source Organization
+### Card & Grid Files
 
+To set up a Three Trios game, the deck and grid take in file representations to use.
+
+A single card would be formatted as such: CARD_NAME NORTH SOUTH EAST WEST.\
+Each Direction should be represented by an integer 1-10 (in game 10 is represented by an A).\
+To make a valid deck, you would need at least N+1 cards represented in this way, where N is the
+number of grid cells.
+
+A grid would be formatted as such:
+
+5 7\
+CCXXXXC\
+CXCXXXC\
+CXXCXXC\
+CXXXCXC\
+CXXXXCC
+
+The first two integers represent the number of rows and columns, respectively.\
+C is a valid card cell and X is a hole.
+
+### Source Organization
 
 Project: ThreeTrios\
 ├── src/\
@@ -78,27 +98,6 @@ Project: ThreeTrios\
 ├── TestThreeTriosModel.java\
 └── MockThreeTriosModel.java\
 
-
-### Card & Grid Files
-
-To set up a Three Trios game, the deck and grid take in file representations to use.
-
-A single card would be formatted as such: CARD_NAME NORTH SOUTH EAST WEST.\
-Each Direction should be represented by an integer 1-10 (in game 10 is represented by an A).\
-To make a valid deck, you would need at least N+1 cards represented in this way, where N is the
-number of grid cells.
-
-A grid would be formatted as such:
-
-5 7\
-CCXXXXC\
-CXCXXXC\
-CXXCXXC\
-CXXXCXC\
-CXXXXCC
-
-The first two integers represent the number of rows and columns, respectively.\
-C is a valid card cell and X is a hole.
 
 ## Classes
 #### MODEL
