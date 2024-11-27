@@ -84,6 +84,7 @@ Project: ThreeTrios\
 To set up a Three Trios game, the deck and grid take in file representations to use.
 
 A single card would be formatted as such: CARD_NAME NORTH SOUTH EAST WEST.\
+Each Direction should be represented by an integer 1-10 (in game 10 is represented by an A).\
 To make a valid deck, you would need at least N+1 cards represented in this way, where N is the
 number of grid cells.
 
