@@ -28,7 +28,7 @@ public interface IHandView extends IView {
    *
    * @return the selected CardView, or null if no card is selected
    */
-  CardView getSelectedCardView();
+  ICardView getSelectedCardView();
 
   /**
    * Sets the features object to enable communication with the controller.

@@ -39,7 +39,7 @@ public interface ICard {
    * @param color given player's color
    * @return the card
    */
-  Card setColor(PlayerColor color);
+  ICard setColor(PlayerColor color);
 
   /**
    * Returns a string representation of the card.

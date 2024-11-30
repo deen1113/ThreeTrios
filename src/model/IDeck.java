@@ -18,12 +18,12 @@ public interface IDeck {
    *
    * @return a list of cards
    */
-  List<Card> getDeck();
+  List<ICard> getDeck();
 
   /**
    * Draws a card from the deck.
    *
    * @return the drawn card
    */
-  Card draw();
+  ICard draw();
 }

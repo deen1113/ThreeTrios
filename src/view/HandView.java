@@ -106,7 +106,7 @@ public class HandView extends JPanel implements IHandView {
   }
 
   @Override
-  public CardView getSelectedCardView() {
+  public ICardView getSelectedCardView() {
     return selectedCardView;
   }
 

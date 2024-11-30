@@ -57,7 +57,7 @@ public class Grid implements IGrid {
   }
 
  @Override
-  public GridCell[][] getGrid() {
+  public IGridCell[][] getGrid() {
     return grid;
   }
 
@@ -67,7 +67,7 @@ public class Grid implements IGrid {
   }
 
   @Override
-  public Card getCard(int row, int col) {
+  public ICard getCard(int row, int col) {
     Card card;
     try {
       card = (Card) grid[row][col].getCard();

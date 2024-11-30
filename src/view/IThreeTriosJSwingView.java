@@ -22,7 +22,7 @@ public interface IThreeTriosJSwingView extends IView {
    *
    * @return the selected CardView
    */
-  CardView getSelectedCardView();
+  ICardView getSelectedCardView();
 
   /**
    * When game is over, winner and points are displayed.

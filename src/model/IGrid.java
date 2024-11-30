@@ -12,7 +12,7 @@ public interface IGrid {
    *
    * @return a 2-dimensional array of grid cells
    */
-  GridCell[][] getGrid();
+  IGridCell[][] getGrid();
 
   /**
    * Sets the card in the grid cell at the given coordinates.

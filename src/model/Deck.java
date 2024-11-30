@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class Deck implements IDeck{
 
-  private final List<Card> deck;
+  private final List<ICard> deck;
 
   /**
    * Constructs a deck of cards from a given file representation of cards.
@@ -25,8 +25,8 @@ public class Deck implements IDeck{
     this.deck = loadCardsFromFile(filepath);
   }
 
-  private List<Card> loadCardsFromFile(String filePath) throws FileNotFoundException {
-    List<Card> cards = new ArrayList<>();
+  private List<ICard> loadCardsFromFile(String filePath) throws FileNotFoundException {
+    List<ICard> cards = new ArrayList<>();
 
     // read the file and create a card for each line
     // add all 5 args to a list
@@ -65,12 +65,12 @@ public class Deck implements IDeck{
   }
 
   @Override
-  public List<Card> getDeck() {
+  public List<ICard> getDeck() {
     return deck;
   }
 
   @Override
-  public Card draw() {
+  public ICard draw() {
     return deck.remove(0);
   }
 

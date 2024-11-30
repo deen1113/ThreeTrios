@@ -90,9 +90,9 @@ public class ThreeTriosJSwingView extends JFrame implements IThreeTriosJSwingVie
   }
 
   @Override
-  public CardView getSelectedCardView() {
+  public ICardView getSelectedCardView() {
     PlayerColor currentPlayerColor = model.getCurrentPlayer().getColor();
-    CardView selectedCardView = null;
+    ICardView selectedCardView = null;
 
     if (currentPlayerColor.equals(PlayerColor.RED)) {
       selectedCardView = redHand.getSelectedCardView();
