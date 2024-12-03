@@ -99,9 +99,9 @@ public class ThreeTriosJSwingView extends JFrame implements IThreeTriosJSwingVie
     CardView selectedCardView = null;
 
     if (currentPlayerColor.equals(PlayerColor.RED)) {
-      selectedCardView = redHand.getSelectedCardView();
+      selectedCardView = (CardView) redHand.getSelectedCardView();
     } else if (currentPlayerColor.equals(PlayerColor.BLUE)) {
-      selectedCardView = blueHand.getSelectedCardView();
+      selectedCardView = (CardView) blueHand.getSelectedCardView();
     }
     return selectedCardView;
   }

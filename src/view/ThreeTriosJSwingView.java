@@ -80,7 +80,7 @@ public class ThreeTriosJSwingView extends JFrame implements IThreeTriosJSwingVie
 
   @Override
   public int getSelectedCardIndex() {
-    CardView selectedCardView = getSelectedCardView();
+    CardView selectedCardView = (CardView) getSelectedCardView();
 
     if (selectedCardView != null) {
       return selectedCardView.getIndex();
