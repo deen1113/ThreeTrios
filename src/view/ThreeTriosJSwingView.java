@@ -104,14 +104,25 @@ public class ThreeTriosJSwingView extends JFrame implements IThreeTriosJSwingVie
 
   @Override
   public void displayGameWinner() {
-    JOptionPane.showMessageDialog(
-            this,
-         "Winner: " +  model.determineWinner().toString() +
-            "Score: \n" +
-            "Red: " + model.getRedScore() + "\n" +
-            "Blue: " + model.getBlueScore(),
-            "Game over!",
-            JOptionPane.INFORMATION_MESSAGE);
+    if (model.determineWinner() != null) {
+      JOptionPane.showMessageDialog(
+              this,
+              "Winner: " + model.determineWinner().toString() +
+                      "Score: \n" +
+                      "Red: " + model.getRedScore() + "\n" +
+                      "Blue: " + model.getBlueScore(),
+              "Game over!",
+              JOptionPane.INFORMATION_MESSAGE);
+    } else {
+      JOptionPane.showMessageDialog(
+              this,
+              "Tie!" +
+                      "Score: \n" +
+                      "Red: " + model.getRedScore() + "\n" +
+                      "Blue: " + model.getBlueScore(),
+              "Game over!",
+              JOptionPane.INFORMATION_MESSAGE);
+    }
   }
 
   @Override
