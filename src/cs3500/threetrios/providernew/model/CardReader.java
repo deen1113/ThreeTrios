@@ -31,7 +31,7 @@ public class CardReader implements DeckReader {
       for (int i = 1; i < values.length; i++) {
         if (Integer.parseInt(values[i]) > 0 && Integer.parseInt(values[i]) < 10) {
           attackValues.add(Value.valueOf(values[i]));
-        } else { // throw exception if the value is not 1-9 or A
+        } else {
           throw new IllegalArgumentException("Invalid attack value");
         }
       }

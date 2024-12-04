@@ -2,7 +2,7 @@ package cs3500.threetrios.providernew.model;
 
 import java.util.List;
 
-public class PlayCard implements Card {
+public class PlayCard implements Card<PlayCard> {
   private final String name;
   private final List<Value> values;
   private PlayerColor color;
@@ -54,7 +54,8 @@ public class PlayCard implements Card {
   }
 
   @Override
-  public Card clone() {
-    return null;
+  public PlayCard clone() {
+    PlayCard playCard = (PlayCard) super.clone();
+    return playCard;
   }
 }

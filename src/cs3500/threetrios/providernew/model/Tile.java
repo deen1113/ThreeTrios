@@ -1,7 +1,7 @@
 package cs3500.threetrios.providernew.model;
 
-public class Tile implements Cell {
-  private Card card;
+public class Tile implements Cell<PlayCard> {
+  private Card<PlayCard> card;
   private final boolean hole;
 
   public Tile(boolean isHole) {
@@ -10,7 +10,7 @@ public class Tile implements Cell {
   }
 
   @Override
-  public void playToTile(Card card) {
+  public void playToTile(PlayCard card) {
     if (card == null) {
       throw new IllegalArgumentException("Card cannot be null.");
     }
