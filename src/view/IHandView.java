@@ -1,11 +1,11 @@
 package view;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.List;
 
 import controller.IPlayerActions;
 import model.ICard;
-import view.ICardView;
+
 
 /**
  * This is the interface for HandView.
