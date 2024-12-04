@@ -73,7 +73,7 @@ public final class ThreeTrios {
     }
 
     ThreeTriosJSwingView player1View = new ThreeTriosJSwingView(model);
-    cs3500.threetrios.provider.view.ThreeTriosJSwingView player2View = new cs3500.threetrios.provider.view.ThreeTriosJSwingView(model);
+    ThreeTriosJSwingView player2View = new ThreeTriosJSwingView(model);
     ThreeTriosController controller1 = new ThreeTriosController(model, player1View, player1);
     ThreeTriosController controller2 = new ThreeTriosController(model, player2View, player2);
     model.setListener(controller1);

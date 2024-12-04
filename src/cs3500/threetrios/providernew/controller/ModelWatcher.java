@@ -1,6 +1,6 @@
 package cs3500.threetrios.providernew.controller;
 
-import cs3500.threetrios.model.Card;
+import cs3500.threetrios.providernew.model.Card;
 
 /**
  * An observer for a controller's given model to watch and broadcast certain calls from the model.
