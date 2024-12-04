@@ -1,4 +1,5 @@
-package cs3500.threetrios.providernew;
+package cs3500.threetrios.providernew.model;
+
 
 /**
  * A representation of a Card in the Three Trios Game. Holds information about the 4 Values, its

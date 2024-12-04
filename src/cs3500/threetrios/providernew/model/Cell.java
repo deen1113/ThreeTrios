@@ -1,4 +1,4 @@
-package cs3500.threetrios.providernew;
+package cs3500.threetrios.providernew.model;
 
 /**
  * Represents a position on the game space. A tile is either a hole or a playable space Once a card

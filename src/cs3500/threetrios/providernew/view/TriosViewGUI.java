@@ -1,4 +1,4 @@
-package cs3500.threetrios.providernew;
+package cs3500.threetrios.providernew.view;
 
 import cs3500.threetrios.controller.PlayerAction;
 import cs3500.threetrios.model.PlayCard;

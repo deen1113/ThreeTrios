@@ -1,4 +1,4 @@
-package cs3500.threetrios.providernew;
+package cs3500.threetrios.providernew.model;
 
 
 import cs3500.threetrios.controller.ModelWatcher;

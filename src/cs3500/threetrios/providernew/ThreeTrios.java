@@ -1,17 +1,17 @@
 package cs3500.threetrios.providernew;
 
-import cs3500.threetrios.controller.ControllerImpl;
-import cs3500.threetrios.model.HumanPlayer;
-import cs3500.threetrios.model.IPlayer;
-import cs3500.threetrios.model.MachinePlayer;
-import cs3500.threetrios.model.PlayCard;
-import cs3500.threetrios.model.ThreeTrioModel;
-import cs3500.threetrios.model.computer.CornerStrategy;
-import cs3500.threetrios.model.computer.FlipMaxStrategy;
-import cs3500.threetrios.model.computer.InfallableStrategy;
-import cs3500.threetrios.model.computer.LeastFlipableStrategy;
-import cs3500.threetrios.model.computer.SingleMove;
-import cs3500.threetrios.view.ThreeTriosGUI;
+import cs3500.threetrios.providernew.ControllerImpl;
+import cs3500.threetrios.providernew.HumanPlayer;
+import cs3500.threetrios.providernew.IPlayer;
+import cs3500.threetrios.providernew.MachinePlayer;
+import cs3500.threetrios.providernew.PlayCard;
+import cs3500.threetrios.providernew.ThreeTrioModel;
+import cs3500.threetrios.providernew.computer.CornerStrategy;
+import cs3500.threetrios.providernew.computer.FlipMaxStrategy;
+import cs3500.threetrios.providernew.computer.InfallableStrategy;
+import cs3500.threetrios.providernew.computer.LeastFlipableStrategy;
+import cs3500.threetrios.providernew.computer.SingleMove;
+import cs3500.threetrios.providernew.ThreeTriosGUI;
 
 import javax.swing.SwingUtilities;
 

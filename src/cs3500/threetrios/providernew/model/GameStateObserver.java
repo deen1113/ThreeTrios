@@ -1,6 +1,7 @@
-package cs3500.threetrios.providernew;
+package cs3500.threetrios.providernew.model;
 
 import cs3500.threetrios.model.computer.Move;
+
 import java.util.Map;
 
 public interface GameStateObserver<C extends Card<C>> {

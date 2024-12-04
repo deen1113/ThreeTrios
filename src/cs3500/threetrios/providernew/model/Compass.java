@@ -1,4 +1,4 @@
-package cs3500.threetrios.providernew;
+package cs3500.threetrios.providernew.model;
 
 /**
  * Enum to represent our cardinal directions for our Cards in our ThreeTrios game.  These

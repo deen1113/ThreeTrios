@@ -1,4 +1,4 @@
-package cs3500.threetrios.providernew;
+package cs3500.threetrios.providernew.controller;
 
 import cs3500.threetrios.model.PlayerColor;
 import cs3500.threetrios.model.computer.Move;
