@@ -1,8 +1,8 @@
-package cs3500.threetrios.providernew;
+package cs3500.threetrios.providernew.model.strategy;
 
-import cs3500.threetrios.model.Card;
-import cs3500.threetrios.model.IPlayer;
-import cs3500.threetrios.model.ReadOnlyTrioModel;
+import cs3500.threetrios.providernew.model.Card;
+import cs3500.threetrios.providernew.model.IPlayer;
+import cs3500.threetrios.providernew.model.ReadOnlyTrioModel;
 import java.util.List;
 
 /**

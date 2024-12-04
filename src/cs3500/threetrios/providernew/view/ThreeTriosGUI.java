@@ -2,11 +2,11 @@ package cs3500.threetrios.providernew.view;
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-import cs3500.threetrios.controller.PlayerAction;
-import cs3500.threetrios.model.PlayCard;
-import cs3500.threetrios.model.PlayerColor;
-import cs3500.threetrios.model.ReadOnlyTrioModel;
-import cs3500.threetrios.providernew.HandPanel;
+import cs3500.threetrios.providernew.controller.PlayerAction;
+import cs3500.threetrios.providernew.model.PlayCard;
+import cs3500.threetrios.providernew.model.PlayerColor;
+import cs3500.threetrios.providernew.model.ReadOnlyTrioModel;
+import cs3500.threetrios.providernew.view.HandPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -90,6 +90,7 @@ public class ThreeTriosGUI extends JFrame implements TriosViewGUI {
     redHandPanel.addPlayerListener(listener);
     blueHandPanel.addPlayerListener(listener);
   }
+  
   @Override
   public void setHeader(String title) {
     setTitle(title);

@@ -1,7 +1,7 @@
 package cs3500.threetrios.providernew.model;
 
 
-import cs3500.threetrios.controller.ModelWatcher;
+import cs3500.threetrios.providernew.controller.ModelWatcher;
 
 /**
  * This is the interface for our Model, starts the game and also has the placeCard method for the

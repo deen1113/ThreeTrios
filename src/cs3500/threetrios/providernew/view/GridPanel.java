@@ -4,7 +4,7 @@ package cs3500.threetrios.providernew.view;
 
 import cs3500.threetrios.controller.PlayerAction;
 import cs3500.threetrios.model.Compass;
-import cs3500.threetrios.model.PlayCard;
+import cs3500.threetrios.providernew.model.PlayCard;
 import cs3500.threetrios.model.PlayerColor;
 import cs3500.threetrios.model.ReadOnlyTrioModel;
 import cs3500.threetrios.model.TrioMap;

@@ -1,6 +1,6 @@
 package cs3500.threetrios.providernew.model;
 
-import cs3500.threetrios.controller.PlayerAction;
+import cs3500.threetrios.providernew.controller.PlayerAction;
 
 import java.util.List;
 

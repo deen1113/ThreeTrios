@@ -129,6 +129,11 @@ public class HandView extends JPanel implements IHandView {
   }
 
   @Override
+  public Color getColor() {
+    return this.color;
+  }
+
+  @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
   }

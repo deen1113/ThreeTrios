@@ -2,11 +2,11 @@ package cs3500.threetrios.providernew.view;
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-import cs3500.threetrios.controller.PlayerAction;
-import cs3500.threetrios.model.Compass;
-import cs3500.threetrios.model.PlayCard;
-import cs3500.threetrios.model.PlayerColor;
-import cs3500.threetrios.model.ReadOnlyTrioModel;
+import cs3500.threetrios.providernew.controller.PlayerAction;
+import cs3500.threetrios.providernew.model.Compass;
+import cs3500.threetrios.providernew.model.PlayCard;
+import cs3500.threetrios.providernew.model.PlayerColor;
+import cs3500.threetrios.providernew.model.ReadOnlyTrioModel;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;

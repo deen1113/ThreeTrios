@@ -1,9 +1,7 @@
-package cs3500.threetrios.providernew.controller;
+package cs3500.threetrios.providernew.model;
 
 import java.io.File;
 import java.util.List;
-
-import cs3500.threetrios.providernew.model.Card;
 
 /**
  * A reader designed to take in configuration files and read them in context of a Three Trios Deck.

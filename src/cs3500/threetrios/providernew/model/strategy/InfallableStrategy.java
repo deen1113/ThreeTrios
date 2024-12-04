@@ -1,4 +1,4 @@
-package cs3500.threetrios.providernew;
+package cs3500.threetrios.providernew.model.strategy;
 
 import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.IPlayer;

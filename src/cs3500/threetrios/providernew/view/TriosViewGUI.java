@@ -1,8 +1,8 @@
 package cs3500.threetrios.providernew.view;
 
-import cs3500.threetrios.controller.PlayerAction;
-import cs3500.threetrios.model.PlayCard;
-import cs3500.threetrios.model.ReadOnlyTrioModel;
+import cs3500.threetrios.providernew.controller.PlayerAction;
+import cs3500.threetrios.providernew.model.PlayCard;
+import cs3500.threetrios.providernew.model.ReadOnlyTrioModel;
 
 /**
  * Interface for the Three Trios game GUI view.

@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.*;
 import java.util.List;
 
 import controller.IPlayerActions;
@@ -42,4 +43,11 @@ public interface IHandView extends IView {
    * Deselects the currently selected card, if any.
    */
   void deselectCard();
+
+  /**
+   * This method gets the color of this HandView and returns it.
+   *
+   * @return the color of the HandView
+   */
+  Color getColor();
 }
