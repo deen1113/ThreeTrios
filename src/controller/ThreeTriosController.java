@@ -1,5 +1,7 @@
 package controller;
 
+import cs3500.threetrios.providernew.controller.ModelWatcher;
+import cs3500.threetrios.providernew.controller.PlayerAction;
 import player.AIPlayer;
 import player.IPlayer;
 import model.IThreeTriosModel;
@@ -11,7 +13,8 @@ import view.IThreeTriosJSwingView;
  * view and responds when the player clicks on the view and or the model sends an update.
  * The player can click on a card in the hands or on the grid.
  */
-public class ThreeTriosController implements IPlayerActions, ModelListener {
+public class ThreeTriosController implements IPlayerActions, ModelListener,
+        ModelWatcher, PlayerAction {
   private final IThreeTriosModel model;
   private final IThreeTriosJSwingView view;
   private final IPlayer player;
@@ -102,5 +105,30 @@ public class ThreeTriosController implements IPlayerActions, ModelListener {
     if (currentPlayer instanceof AIPlayer) {
       player.playCard(0, 0, 0, player.getColor());
     }
+  }
+
+  @Override
+  public void signalTurn() {
+
+  }
+
+  @Override
+  public void callWinner() {
+
+  }
+
+  @Override
+  public void handleCellClick(int row, int col) {
+
+  }
+
+  @Override
+  public void handleCardClick(int index, cs3500.threetrios.providernew.model.PlayerColor color) {
+
+  }
+
+  @Override
+  public void handleMove(Move move) {
+
   }
 }

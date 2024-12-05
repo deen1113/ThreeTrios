@@ -30,7 +30,6 @@ public class ThreeTriosGUI extends JFrame implements TriosViewGUI {
   private static final int WINDOW_WIDTH = 1000;
   private static final int PANEL_HEIGHT = 1000;
   private static final int SIDE_PANEL_WIDTH = 200;
-
   /**
    * Constructs a ThreeTriosGUI with a ReadOnly version of a Three Trios Model.
    *

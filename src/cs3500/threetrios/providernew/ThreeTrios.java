@@ -2,7 +2,7 @@ package cs3500.threetrios.providernew;
 
 import cs3500.threetrios.providernew.ControllerImpl;
 import cs3500.threetrios.providernew.HumanPlayer;
-import cs3500.threetrios.providernew.IPlayer;
+import cs3500.threetrios.providernew.model.IPlayer;
 import cs3500.threetrios.providernew.MachinePlayer;
 import cs3500.threetrios.providernew.model.PlayCard;
 import cs3500.threetrios.providernew.model.ThreeTriosProviderModel;
