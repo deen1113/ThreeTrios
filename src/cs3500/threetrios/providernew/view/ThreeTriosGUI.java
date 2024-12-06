@@ -3,11 +3,9 @@ package cs3500.threetrios.providernew.view;
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import cs3500.threetrios.providernew.controller.PlayerAction;
-import cs3500.threetrios.providernew.model.PlayCard;
+import cs3500.threetrios.providernew.model.Card;
 import cs3500.threetrios.providernew.model.PlayerColor;
 import cs3500.threetrios.providernew.model.ReadOnlyTrioModel;
-import cs3500.threetrios.providernew.view.HandPanel;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.BorderFactory;
@@ -20,28 +18,28 @@ import javax.swing.JPanel;
  * representation of the game, with a grid board, 2 panels of hands of cards, and renders the cards
  * themselves.  Users can play the game by clicking the cards and then their desired placement on
  * the grid.
- */
-public class ThreeTriosGUI extends JFrame implements TriosViewGUI {
+ */public class ThreeTriosGUI<C extends Card<C>> extends JFrame implements TriosViewGUI<C> {
 
-  private final GridPanel gridPanel;
-  private final HandPanel redHandPanel;
-  private final HandPanel blueHandPanel;
-  private ReadOnlyTrioModel<PlayCard> model;
+  private final GridPanel<C> gridPanel;
+  private final HandPanel<C> redHandPanel;
+  private final HandPanel<C> blueHandPanel;
+  private ReadOnlyTrioModel<C> model;
   private static final int WINDOW_WIDTH = 1000;
   private static final int PANEL_HEIGHT = 1000;
   private static final int SIDE_PANEL_WIDTH = 200;
+
   /**
    * Constructs a ThreeTriosGUI with a ReadOnly version of a Three Trios Model.
    *
    * @param model a read only model for grabbing information for display.
    */
-  public ThreeTriosGUI(ReadOnlyTrioModel<PlayCard> model) {
+  public ThreeTriosGUI(ReadOnlyTrioModel<C> model) {
     super();
     this.model = model;
 
-    gridPanel = new GridPanel();
-    redHandPanel = new HandPanel(PlayerColor.RED);
-    blueHandPanel = new HandPanel(PlayerColor.BLUE);
+    gridPanel = new GridPanel<>();
+    redHandPanel = new HandPanel<>(PlayerColor.RED);
+    blueHandPanel = new HandPanel<>(PlayerColor.BLUE);
 
     gridPanel.setModel(model);
     redHandPanel.setModel(model);
@@ -89,7 +87,7 @@ public class ThreeTriosGUI extends JFrame implements TriosViewGUI {
     redHandPanel.addPlayerListener(listener);
     blueHandPanel.addPlayerListener(listener);
   }
-  
+
   @Override
   public void setHeader(String title) {
     setTitle(title);
@@ -109,7 +107,7 @@ public class ThreeTriosGUI extends JFrame implements TriosViewGUI {
   }
 
   @Override
-  public void setModel(ReadOnlyTrioModel<PlayCard> model) {
+  public void setModel(ReadOnlyTrioModel<C> model) {
     this.model = model;
     gridPanel.setModel(model);
     redHandPanel.setModel(model);

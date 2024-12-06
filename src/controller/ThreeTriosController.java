@@ -2,6 +2,7 @@ package controller;
 
 import cs3500.threetrios.providernew.controller.ModelWatcher;
 import cs3500.threetrios.providernew.controller.PlayerAction;
+import cs3500.threetrios.providernew.model.IMove;
 import player.AIPlayer;
 import player.IPlayer;
 import model.IThreeTriosModel;
@@ -128,7 +129,7 @@ public class ThreeTriosController implements IPlayerActions, ModelListener,
   }
 
   @Override
-  public void handleMove(Move move) {
+  public void handleMove(IMove move) {
 
   }
 }

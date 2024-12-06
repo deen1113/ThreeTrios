@@ -3,9 +3,8 @@ package cs3500.threetrios.providernew.view;
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import cs3500.threetrios.providernew.controller.PlayerAction;
+import cs3500.threetrios.providernew.model.Card;
 import cs3500.threetrios.providernew.model.Compass;
-import cs3500.threetrios.providernew.model.Compass;
-import cs3500.threetrios.providernew.model.PlayCard;
 import cs3500.threetrios.providernew.model.PlayerColor;
 import cs3500.threetrios.providernew.model.ReadOnlyTrioModel;
 import cs3500.threetrios.providernew.model.TrioMap;
@@ -29,9 +28,9 @@ import javax.swing.JPanel;
  * coordinate system of the grid starts at (0,0) in the upper left hand corner, X increases
  * downwards and Y increases to the right.
  */
-public class GridPanel extends JPanel implements MouseListener {
+public class GridPanel<C extends Card<C>> extends JPanel implements MouseListener {
 
-  private ReadOnlyTrioModel<PlayCard> model;
+  private ReadOnlyTrioModel<C> model;
   private static final int CELL_SIZE = 100;
   private static final Color TILE_COLOR = Color.YELLOW;
   private static final Color HOLE_COLOR = Color.LIGHT_GRAY;
@@ -67,7 +66,7 @@ public class GridPanel extends JPanel implements MouseListener {
       return;
     }
 
-    TrioMap<PlayCard> grid = model.getGrid();
+    TrioMap<C> grid = model.getGrid();
     int startX = getStartX(grid.getWidth());
     int startY = getStartY(grid.getHeight());
 
@@ -77,19 +76,15 @@ public class GridPanel extends JPanel implements MouseListener {
     for (PlayerAction action : actionListeners) {
       action.handleCellClick(gridY, gridX);
     }
-//    if (isValidMove(gridX, gridY, grid.getWidth(), grid.getHeight())) {
-//
-//    }
+
   }
 
   private boolean isValidMove(int gridX, int gridY, int width, int height) {
-    return gridX >= 0 && gridX < width &&
-           gridY >= 0 && gridY < height &&
-           !model.getGrid().getTile(gridY, gridX).isHole() &&
-           !model.getGrid().getTile(gridY, gridX).hasCard();
+    return gridX >= 0 && gridX < width && gridY >= 0 && gridY < height && !model.getGrid()
+        .getTile(gridY, gridX).isHole() && !model.getGrid().getTile(gridY, gridX).hasCard();
   }
 
-  public void setModel(ReadOnlyTrioModel<PlayCard> model) {
+  public void setModel(ReadOnlyTrioModel<C> model) {
     this.model = model;
     repaint();
   }
@@ -106,14 +101,14 @@ public class GridPanel extends JPanel implements MouseListener {
     }
 
     Graphics2D g2d = (Graphics2D) g;
-    TrioMap<PlayCard> grid = model.getGrid();
+    TrioMap<C> grid = model.getGrid();
     int startX = getStartX(grid.getWidth());
     int startY = getStartY(grid.getHeight());
 
     drawGrid(g2d, grid, startX, startY);
   }
 
-  private void drawGrid(Graphics2D g2d, TrioMap<PlayCard> grid, int startX, int startY) {
+  private void drawGrid(Graphics2D g2d, TrioMap<C> grid, int startX, int startY) {
     for (int row = 0; row < grid.getHeight(); row++) {
       for (int col = 0; col < grid.getWidth(); col++) {
         int x = startX + (col * CELL_SIZE);
@@ -123,7 +118,7 @@ public class GridPanel extends JPanel implements MouseListener {
     }
   }
 
-  private void drawCell(Graphics2D g2d, TrioMap<PlayCard> grid, int row, int col, int x, int y) {
+  private void drawCell(Graphics2D g2d, TrioMap<C> grid, int row, int col, int x, int y) {
     if (grid.getTile(row, col).isHole()) {
       g2d.setColor(HOLE_COLOR);
       g2d.fillRect(x, y, CELL_SIZE, CELL_SIZE);
@@ -138,7 +133,7 @@ public class GridPanel extends JPanel implements MouseListener {
     g2d.drawRect(x, y, CELL_SIZE, CELL_SIZE);
   }
 
-  private void drawCardValues(Graphics2D g2d, PlayCard card, int x, int y) {
+  private void drawCardValues(Graphics2D g2d, C card, int x, int y) {
     String north = card.getValue(Compass.NORTH).toString();
     String south = card.getValue(Compass.SOUTH).toString();
     String west = card.getValue(Compass.WEST).toString();
@@ -150,7 +145,7 @@ public class GridPanel extends JPanel implements MouseListener {
     g2d.drawString(east, x + CELL_SIZE - 20, y + CELL_SIZE / 2);
   }
 
-  private void drawCard(Graphics2D g2d, PlayCard card, int x, int y) {
+  private void drawCard(Graphics2D g2d, C card, int x, int y) {
     g2d.setColor(card.getColor() == PlayerColor.RED ? Color.RED : Color.BLUE);
     g2d.fillRect(x, y, CELL_SIZE, CELL_SIZE);
 
@@ -165,7 +160,7 @@ public class GridPanel extends JPanel implements MouseListener {
     if (model == null) {
       return new Dimension(300, 300);
     }
-    TrioMap<PlayCard> grid = model.getGrid();
+    TrioMap<C> grid = model.getGrid();
     int width = grid.getWidth() * CELL_SIZE;
     int height = grid.getHeight() * CELL_SIZE;
     return new Dimension(width, height);
@@ -177,20 +172,19 @@ public class GridPanel extends JPanel implements MouseListener {
       return;
     }
 
-    TrioMap<PlayCard> grid = model.getGrid();
+    TrioMap<C> grid = model.getGrid();
     int startX = getStartX(grid.getWidth());
     int startY = getStartY(grid.getHeight());
 
-    if (e.getX() < startX || e.getX() > startX + (grid.getWidth() * CELL_SIZE) ||
-        e.getY() < startY || e.getY() > startY + (grid.getHeight() * CELL_SIZE)) {
+    if (e.getX() < startX || e.getX() > startX + (grid.getWidth() * CELL_SIZE) || e.getY() < startY
+        || e.getY() > startY + (grid.getHeight() * CELL_SIZE)) {
       return;
     }
 
     int gridX = (e.getX() - startX) / CELL_SIZE;
     int gridY = (e.getY() - startY) / CELL_SIZE;
 
-    if (gridX >= 0 && gridX < grid.getWidth() &&
-        gridY >= 0 && gridY < grid.getHeight()) {
+    if (gridX >= 0 && gridX < grid.getWidth() && gridY >= 0 && gridY < grid.getHeight()) {
       System.out.println("clicked grid at coordinates: (" + gridY + ", " + gridX + ")");
       gridClick(e);
     }

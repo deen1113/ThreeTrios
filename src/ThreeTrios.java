@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 
 import controller.ThreeTriosController;
 import cs3500.threetrios.providernew.view.ThreeTriosGUI;
+import model.IThreeTriosModel;
 import player.AIPlayer;
 import player.HumanPlayer;
 import player.IPlayer;
@@ -12,6 +13,7 @@ import model.PlayerColor;
 import model.ThreeTriosModel;
 import strategy.Corners;
 import strategy.FlipMaxCards;
+import view.IThreeTriosJSwingView;
 import view.ThreeTriosJSwingView;
 
 
@@ -76,7 +78,7 @@ public final class ThreeTrios {
     ThreeTriosJSwingView player1View = new ThreeTriosJSwingView(model);
     ThreeTriosGUI player2View = new ThreeTriosGUI(model);
     ThreeTriosController controller1 = new ThreeTriosController(model, player1View, player1);
-    ThreeTriosController controller2 = new ThreeTriosController(model, player2View, player2);
+    ThreeTriosController controller2 = new ThreeTriosController(model, player1View, player2);
     model.setListener(controller1);
     model.setListener(controller2);
 
@@ -87,7 +89,7 @@ public final class ThreeTrios {
     player1View.pack();
     player1View.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    player2View.setFeatures(controller2);
+    player2View.addPlayerListener(controller2);
     if (player2 instanceof HumanPlayer) {
       player2View.setVisible(true);
     }

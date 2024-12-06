@@ -3,8 +3,8 @@ package cs3500.threetrios.providernew.view;
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import cs3500.threetrios.providernew.controller.PlayerAction;
+import cs3500.threetrios.providernew.model.Card;
 import cs3500.threetrios.providernew.model.Compass;
-import cs3500.threetrios.providernew.model.PlayCard;
 import cs3500.threetrios.providernew.model.PlayerColor;
 import cs3500.threetrios.providernew.model.ReadOnlyTrioModel;
 import java.awt.BasicStroke;
@@ -26,9 +26,9 @@ import javax.swing.JPanel;
  * Class to build visual representations of each player's hands, which are held in panels on either
  * side of the grid panel.
  */
-class HandPanel extends JPanel implements MouseListener {
+class HandPanel<C extends Card<C>> extends JPanel implements MouseListener {
 
-  private ReadOnlyTrioModel<PlayCard> model;
+  private ReadOnlyTrioModel<C> model;
   private final PlayerColor color;
   private Integer selectedCard;
   private static final int CARD_WIDTH = 120;
@@ -99,7 +99,7 @@ class HandPanel extends JPanel implements MouseListener {
     // pass
   }
 
-  public void setModel(ReadOnlyTrioModel<PlayCard> model) {
+  public void setModel(ReadOnlyTrioModel<C> model) {
     this.model = model;
     repaint();
   }
@@ -117,7 +117,7 @@ class HandPanel extends JPanel implements MouseListener {
     }
 
     Graphics2D g2d = (Graphics2D) g;
-    List<PlayCard> hand;
+    List<C> hand;
     if (color == PlayerColor.RED) {
       hand = model.getRedPlayer().getHand();
     } else {
@@ -129,12 +129,12 @@ class HandPanel extends JPanel implements MouseListener {
     }
   }
 
-  private void drawCard(Graphics2D g2d, PlayCard card, int index) {
+  private void drawCard(Graphics2D g2d, C card, int index) {
     int x = (getWidth() - CARD_WIDTH) / 2;
     int y = index * CARD_HEIGHT + TOP_MARGIN;
 
     cardHighlight(g2d, x, y, index);
-    if(selectedCard == null || selectedCard != index) {
+    if (selectedCard == null || selectedCard != index) {
       fillCard(g2d, x, y);
     }
     drawCardValues(g2d, card, x, y);
@@ -165,7 +165,7 @@ class HandPanel extends JPanel implements MouseListener {
     g2d.drawRect(x, y, CARD_WIDTH, CARD_HEIGHT);
   }
 
-  private void drawCardValues(Graphics2D g2d, PlayCard card, int x, int y) {
+  private void drawCardValues(Graphics2D g2d, C card, int x, int y) {
     g2d.setColor(Color.BLACK);
     g2d.setFont(new Font("Arial", Font.BOLD, (CARD_HEIGHT / 5)));
     FontMetrics metrics = g2d.getFontMetrics();
