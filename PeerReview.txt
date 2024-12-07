@@ -1,0 +1,25 @@
+One small critique we can start with is the README. All README's use the .md file extension because it allows for special formatting which would
+allow the user to create a very nice looking and formatted readme. While our provider's readme had good data, it was somewhat difficult to read
+due to the formatting being all over the place. This is a small critique, but it is important to have a well formatted README so that customers
+have an easier time reading it. I would simply suggest that the provider changed the file extension and used markdown formatting to make it look nicer.
+That being said, the README was very informative and had a lot of good information in it.
+
+As far as their Intefaces go, it made it a bit difficult to work with them only because their methods were applicable to both players. This made it
+hard for us to use them because our code relied on the method itself figuring out the color of the player while their methods required the color to work.
+This fundamentally changed the way we had to implement our code and made it a bit more difficult to work with. The interfaces for the controller were great,
+they operated nearly identically to the way that we implemeted our controller so it was super easy to work with. Samething for the listeners, they were
+easy to work with and making actions happen was simple.
+
+One issue we did have with their interfaces was the map reading. Their MapReader took a type parameter which our code did not. This made is impossible
+to integrate that feature and as a result, we could not run our code with their view. This was obviously a big issue because we could not ultimately
+test our code against their view. This isn't a mistake made by either party but it is a fundamental design difference that made our code incompatible.
+
+Otherwise, their code was well written and was well documented. The Java docs were very helpful in explaining the expected functionality of each method.
+We never had to reach our for clarification execpt in one instance where we were trying to figure out how their model performed battles. There was no
+mention of it in the java docs. After reaching out, we received a well written response but I would say to mention any important details like that
+in java docs so that users don't have to wonder about where important functionality like that is.
+
+We also had to reach out to our providers about clarifying which interfaces belonged to MVC. The code they sent was just one file with all the interfaces
+which made it more difficult for us to try to have to figure out where everything went. They were able to clarify for us when we did ask but we'd recommend
+sending the files more organized in the future, would just eliminate an extra step of having to ask for clarification. We also had to ask our providers
+to interface one of their classes so that we could work with it easier.

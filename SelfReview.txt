@@ -1,0 +1,13 @@
+Our experience working with providers showed us how It's important to be able to clearly identify what an issue with their code is and be able
+to communicate what we need from them. A lot of our communication was clearing up questions we had about their code because there was a lack of
+documentation.
+
+Something we wish we'd done differently is in our design is the way we read our files. The way we read our files was fundamentally different than
+our providers and this made it impossible to fully implement our view. This doesn't necessarily mean we did it wrong or that they did it wrong,
+its just a difference in our designs that caused us to have to make a compromise which ultimately prevented us from finishing this assignemnt.
+
+What we learned from working with customers is that a lot of the way that we design something is because that is the natural way we think about it.
+We learned that the 'natural' design of something is very personal and so we had to make a lot of changes to the way that we return fields,
+the types of fields we return, and the way that we handle interfaces. We had to make a lot of changes to the return types. We were also asked
+to add getter methods in classes that our code didn't require because the customer wanted to be able to access the fields in a certain way. This
+preference of design was something that we didn't expect to run into but we learned that it is important to be able to adapt to the customer's needs.

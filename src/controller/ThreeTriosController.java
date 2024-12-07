@@ -70,26 +70,20 @@ public class ThreeTriosController implements IPlayerActions, ModelListener,
         throw new IllegalStateException("No card selected!");
       }
 
-      // Play the card
       PlayerColor currentPlayerColor = player.getColor();
       player.playCard(row, col, cardIdx, currentPlayerColor);
 
-      // Battle if possible
       model.battle(row, col);
 
-      // Update the current player
       model.updateCurrentPlayer();
 
-      // Check if game is over
       if (model.isGameOver()) {
         view.displayGameWinner();
       }
 
-      // Refresh view
       view.refresh();
 
     } catch (Exception e) {
-      // Display any exceptions in the view
       view.displayException(e);
     }
   }
@@ -110,26 +104,51 @@ public class ThreeTriosController implements IPlayerActions, ModelListener,
 
   @Override
   public void signalTurn() {
-
   }
 
   @Override
   public void callWinner() {
-
+    view.displayGameWinner();
   }
 
   @Override
   public void handleCellClick(int row, int col) {
-
+    onGridCellSelected(row, col);
   }
 
   @Override
   public void handleCardClick(int index, cs3500.threetrios.providernew.model.PlayerColor color) {
-
+    onCardSelected();
   }
 
   @Override
   public void handleMove(IMove move) {
+    try {
+      if (!model.getCurrentPlayer().getColor().equals(player.getColor())) {
+        throw new IllegalStateException("It's not your turn!");
+      }
 
+      int row = move.getPosY();
+      int col = move.getPosX();
+      int cardIdx = move.getHandIndex();
+
+      PlayerColor providerColor = model.getCurrentPlayer().getColor();
+      PlayerColor moveColor = PlayerColor.valueOf(providerColor.name());
+
+      player.playCard(row, col, cardIdx, moveColor);
+
+      model.battle(row, col);
+
+      model.updateCurrentPlayer();
+
+      if (model.isGameOver()) {
+        view.displayGameWinner();
+      }
+
+      view.refresh();
+
+    } catch (Exception e) {
+      view.displayException(e);
+    }
   }
 }

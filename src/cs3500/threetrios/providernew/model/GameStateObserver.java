@@ -1,6 +1,6 @@
 package cs3500.threetrios.providernew.model;
 
-import cs3500.threetrios.model.computer.Move;
+import cs3500.threetrios.providernew.computer.Move;
 
 import java.util.Map;
 

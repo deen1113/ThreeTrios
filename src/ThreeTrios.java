@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import javax.swing.JFrame;
 
 import controller.ThreeTriosController;
+import cs3500.threetrios.providernew.model.ReadOnlyTrioModel;
 import cs3500.threetrios.providernew.view.ThreeTriosGUI;
 import model.IThreeTriosModel;
 import player.AIPlayer;
@@ -76,7 +77,7 @@ public final class ThreeTrios {
     }
 
     ThreeTriosJSwingView player1View = new ThreeTriosJSwingView(model);
-    ThreeTriosGUI player2View = new ThreeTriosGUI(model);
+    ThreeTriosGUI player2View = new ThreeTriosGUI((ReadOnlyTrioModel) model);
     ThreeTriosController controller1 = new ThreeTriosController(model, player1View, player1);
     ThreeTriosController controller2 = new ThreeTriosController(model, player1View, player2);
     model.setListener(controller1);

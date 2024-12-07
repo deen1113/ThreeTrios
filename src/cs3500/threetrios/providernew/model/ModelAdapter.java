@@ -1,6 +1,7 @@
 package cs3500.threetrios.providernew.model;
 
 
+import java.awt.*;
 import java.util.List;
 
 import model.ICard;
@@ -19,21 +20,22 @@ public class ModelAdapter<C extends ICard> implements ReadOnlyTrioModel<C> {
 
   @Override
   public TrioMap<C> getGrid() {
+    return (TrioMap<C>) this.model.getGrid();
   }
 
   @Override
   public boolean isGameOver() {
-    return false;
+    return this.model.isGameOver();
   }
 
   @Override
   public IPlayer<C> getWinner() {
-    return null;
+    return (IPlayer<C>) this.model.determineWinner();
   }
 
   @Override
   public IPlayer<C> getTurn() {
-    return null;
+    return (IPlayer<C>) this.model.getCurrentPlayer();
   }
 
   @Override
@@ -48,7 +50,14 @@ public class ModelAdapter<C extends ICard> implements ReadOnlyTrioModel<C> {
 
   @Override
   public int getScore(IPlayer<C> player) {
-    return 0;
+    if (player == null) {
+      throw new IllegalArgumentException("Player cannot be null.");
+    }
+    if (player.getColor().equals(PlayerColor.RED)) {
+      return this.model.getRedScore();
+    } else {
+      return this.model.getBlueScore();
+    }
   }
 
   @Override
@@ -58,21 +67,29 @@ public class ModelAdapter<C extends ICard> implements ReadOnlyTrioModel<C> {
 
   @Override
   public List<C> getPlayerHand(IPlayer<C> player) {
-    return List.of();
+    if (player == null) {
+      throw new IllegalArgumentException("Player cannot be null.");
+    }
+    if (this.model.getCurrentPlayer() == Color.RED) {
+      return (List<C>) this.model.getRedHand();
+    } else {
+      return (List<C>) this.model.getBlueHand();
+    }
+
   }
 
   @Override
   public Cell<C> getTile(int x, int y) {
-    return null;
+    return this.getGrid().getTile(x, y);
   }
 
   @Override
   public int getGridHeight() {
-    return 0;
+    return this.getGrid().getHeight();
   }
 
   @Override
   public int getGridWidth() {
-    return 0;
+    return this.getGrid().getWidth();
   }
 }

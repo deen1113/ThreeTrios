@@ -1,4 +1,4 @@
-# Three Trios Game
+git pull# Three Trios Game
 
 `ThreeTrioModel` implements the core functionality and rules for a two player card based grid game, 
 called **Three Trios**. This code is for managing gameplay, enforcing game mechanics, 
@@ -143,3 +143,5 @@ if (model.isGameOver()) {
 }
 
 // If game is not over, next player's turn starts
+
+```

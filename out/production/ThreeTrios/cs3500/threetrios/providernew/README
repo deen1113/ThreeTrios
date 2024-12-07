@@ -1,0 +1,118 @@
+Three-Trios
+OVERVIEW An implementation of the game Three-Trios (an Othello kind of game). This is a 2 cs3500.threetrios.original.player card game (red and blue), where players take turns placing cards on a grid and battling to win the color of the cards. The winner of the game has the majority of grid spaces filled with their color. Each card has 4 numbers in each cardinal direction, and 2 cards battle by comparing the number in the direction facing each other. The winning cs3500.threetrios.original.player gets the other cs3500.threetrios.original.player's card changed to the winner's color, and the game continues.
+
+This game follows the cs3500.threetrios.original.model, cs3500.threetrios.original.view, cs3500.threetrios.original.controller organizational programming, which allows for better encapsulation and seperation between classes. The majority of our logic lives in the cs3500.threetrios.original.model: the game state tracking, grid representation, cs3500.threetrios.original.player representation, and management of legal moves within the rules of the game. The Grid is the game board, and tracks positions of the cards placed, the open tiles "C" and the tiiles with holes "X". The GameState and Player Color are also represented as an Enum. The Player class stores the data for the game and helps manage the hands of each cs3500.threetrios.original.player. The Model class controls the smaller portions of our game, such as the Grid, Player, Tile, and PlayCard.
+
+The potential extendability of this code: This game could being a GUI (graphic user interface) instead of the current visual output the game runs on. It also can be extended to have different modes of the game, or rather, extensions of the rules of the game. Since the Player methods are seperated into a seperate class and based off of the two colors, the game could be extended to have more players, or even have one cs3500.threetrios.original.player against a computer.
+
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Our game contains a File Reading System::
+
+GRID READER: The first one is a MapReader, which is able to read the Grid file formats. Its inside of TriosReaderImpl class and implements the MapReader interface, It creates a 2D array of Tile objects to make the board layout for the cs3500.threetrios.original.ThreeTrios game. It reads the rows and columns, and has 2 types of cells, the open tiles "C" and the tiles with holes "X". Grid Configuration file : The file’s format is as follows ROWS COLS ROW_0 ROW_1 ROW_2 ...
+
+public Tile[][] read(File file) --> this is the actual reader itself
+
+it would be used like : File gridFile = new File("4x4grid.config"); TriosReaderImpl reader = new TriosReaderImpl(); Tile[][] gameBoard = reader.read(gridFile);
+
+If the file received is in neither of these formats, the program will throw an IllegalArgumentException.
+
+CARD READER: The card reader reads the card configurations from files and allows them to be converted into card objects. It checks the validity of the input, and converts valid file data into PlayCard Objects. Invalid input (such as Nulls or bad file path) will throw an Invalid Argument Exception. Card Database File : This file’s format is a list of cards CARD_NAME NORTH SOUTH EAST WEST CARD_NAME NORTH SOUTH EAST WEST CARD_NAME NORTH SOUTH EAST WEST ... The cards have their Compass Value (NORTH SOUTH EAST WEST) and their values (1,2,3,4,5,6,7,8,9,A) represented as Enums and PlayCard to put the values and directions together. The order of directions is a fixed value . The most important line of code in this reader is public List read(File file) --> this is the actual reader itself
+
+it would be used like this : CardReader reader = new CardReader(); File configFile = new File("path/to/deck.config"); List deck = reader.read(configFile);
+
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                            **Map of Game**
+Within cs3500/threetrios/ within cs3500.threetrios.original.model :
+
+ThreeTrioModel = this is the main game cs3500.threetrios.original.model, where majority of our methods live
+CardReader = this is the reader for our cards and deck
+TriosReaderImpl = this is the reader for our grid and tiles
+Grid = our game board
+Title = the cells within the game board/ grid
+Player = holds the cs3500.threetrios.original.player state and legal actions
+PlayCard = the implementation of cards
+Value = the valid card values (0-9, A)
+Compass = The directions for the cards, NORTH SOUTH EAST WEST
+PlayerColor = defines the two cs3500.threetrios.original.player's colors
+GameState = holds the state of the game, whether its in progress / battle or over. within cs3500.threetrios.original.view :
+ThreeTrioConsoleView = Implements a cs3500.threetrios.original.view for Three Trio viewable on the console line
+ThreeTrioView = interface representation of the cs3500.threetrios.original.view of a cs3500.threetrios.original.ThreeTrios Game. within test :
+CardReaderTest
+Grid Test
+Model Test
+PlayCardTest
+Player Test
+Tiles Test
+TrioReadertest
+View Test A feature of our testing suite is we used a mock for testing the cs3500.threetrios.original.view, to promote isolation and to have a controlled environment for testing.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+QUICKSTART To run the game, we have the start of a main method, which goes through a preset implementation of the cs3500.threetrios.original.view and cs3500.threetrios.original.model features in the class cs3500.threetrios.original.ThreeTrios.
+
+public class cs3500.threetrios.original.ThreeTrios {
+
+/**
+
+Builds and starts a Three Trio Game.
+@param args unimportant for now. */ public static void main(String[] args) { //Where actual game will be played. TrioModel cs3500.threetrios.original.model = new ThreeTrioModel(); ThreeTrioView cs3500.threetrios.original.view = new ThreeTrioConsoleView(cs3500.threetrios.original.model);
+cs3500.threetrios.original.model.initializeGame("3_3Grid.config", "BasicDeck.config", false);
+System.out.println(cs3500.threetrios.original.view.toString());
+cs3500.threetrios.original.model.placeCard(0,0,0);
+System.out.println(cs3500.threetrios.original.view.toString());
+cs3500.threetrios.original.model.placeCard(0,1,0);
+System.out.println(cs3500.threetrios.original.view.toString());
+cs3500.threetrios.original.model.placeCard(0,1,1);
+System.out.println(cs3500.threetrios.original.view.toString());
+cs3500.threetrios.original.model.placeCard(0,1,2);
+cs3500.threetrios.original.model.placeCard(0,2,0);
+cs3500.threetrios.original.model.placeCard(0,2,1);
+System.out.println(cs3500.threetrios.original.view.toString());
+cs3500.threetrios.original.model.placeCard(0,2,2);
+cs3500.threetrios.original.model.placeCard(0,0,2);
+cs3500.threetrios.original.model.placeCard(0,0,1);
+System.out.println(cs3500.threetrios.original.view.toString());
+System.out.println(cs3500.threetrios.original.model.isGameOver());
+System.out.println(cs3500.threetrios.original.model.getWinner());
+} }
+
+******
+
+---Changes for part 2----
+
+We  had to update our main method (cs3500.threetrios.original.ThreeTrios) to run with the new GUI View rather than
+the old console cs3500.threetrios.original.view.
+
+We also moved our reader classes into the cs3500.threetrios.original.controller package, rather than it being in the cs3500.threetrios.original.model
+as it was before.  Because of this, we moved the tests for the readers into the cs3500.threetrios.original.controller test
+package to keep organized.
+
+
+Our GUI setup has multiple parts:
+- everything is contained to our interface, TriosViewGUI, which guarantees that our
+cs3500.threetrios.original.view is taking in the ReadOnlyTrioModel to prevent accidental mutation.
+-We have 2 main panel classes, GridPanel and HandPanel, but we have 3 panels in implementation.
+the GridPanel renders our board based on the config files given to the cs3500.threetrios.original.model, while the HandPanel
+creates the 2 panels on either side of our grid, containing each cs3500.threetrios.original.player's hands.
+-ThreeTriosGUI is our implementation of the cs3500.threetrios.original.view, and contains the majority of JFrame methods
+putting together the window, panels, and frame.
+-our main class then uses the ThreeTriosGUI method to create an instance of the game.
+
+The coordinate system on our grid has an index of 0,0 starting at the upper left hand corner.
+
+*******
+
+11/23 Updates ~
+from homework 2, we had to update our cs3500.threetrios.original.controller tests to now properly accomodate to our observer/
+listener.  In the cs3500.threetrios.original.model we added a game state observer, game state log, move history,
+and move record.
+Game State Observer: helps detatch the game state changes from the reactions to those changes.
+    follows the observer pattern and further helps seperate components.
+Game State Log: Tracks game flow and helps make a trail of game actions.
+Move Record: makes it easier to find all info about a specific move in one place added this because
+we needed help with debugging, and moving forward helps us know what the cs3500.threetrios.original.strategy players
+are doing directly.
+
+<<<<<<<<<<<<<< most of these were added for debugging purposes but I left them in the final vers.
+of the game.
+
+We wrote aditional tests in the ControllerImpTest class, and wrote aditional tests for our
+Game State Observer, machine cs3500.threetrios.original.player, and a mockstrategy test cs3500.threetrios.original.model.
