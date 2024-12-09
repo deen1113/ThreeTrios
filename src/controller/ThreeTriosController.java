@@ -91,6 +91,7 @@ public class ThreeTriosController implements IPlayerActions, ModelListener {
   @Override
   public void onHintButtonClicked() {
     view.toggleHints(this.player.getColor(), !view.isHintsEnabled());
+    view.refresh();
   }
 
   @Override

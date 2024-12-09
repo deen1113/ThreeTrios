@@ -13,16 +13,16 @@ import player.IPlayer;
  */
 public class ThreeTriosModel implements IThreeTriosModel {
 
+  protected final IGrid grid;
   private final IPlayer redPlayer;
   private final IPlayer bluePlayer;
   private final List<ICard> redHand;
   private final List<ICard> blueHand;
   private final IDeck deck;
-  private final IGrid grid;
   private final List<ModelListener> listeners;
+  protected GameState gameState;
+  protected int numFlipped = 0;
   private IPlayer currentPlayer;
-  private GameState gameState;
-  private int numFlipped = 0;
   private ICard simCard;
 
   /**
@@ -42,6 +42,18 @@ public class ThreeTriosModel implements IThreeTriosModel {
     this.currentPlayer = redPlayer;
     gameState = GameState.NOT_STARTED;
     this.listeners = new ArrayList<>();
+  }
+
+  static void battleChecks(int row, int col, boolean battleState, IGrid grid) {
+    if (battleState) {
+      throw new IllegalStateException("Game is not in battle stage.");
+    }
+    if (row < 0 || row >= grid.getGrid().length || col < 0 || col >= grid.getGrid()[0].length) {
+      throw new IllegalArgumentException("Row or Col is out of bounds.");
+    }
+    if (grid.getCard(row, col) == null) {
+      throw new IllegalArgumentException("Cell does not have a card.");
+    }
   }
 
   @Override
@@ -126,27 +138,19 @@ public class ThreeTriosModel implements IThreeTriosModel {
 
   @Override
   public void battle(int row, int col) {
-    if (gameState != GameState.BATTLE) {
-      throw new IllegalStateException("Game is not in battle stage.");
-    }
-    if (row < 0 || row >= grid.getGrid().length || col < 0 || col >= grid.getGrid()[0].length) {
-      throw new IllegalArgumentException("Row or Col is out of bounds.");
-    }
-    if (grid.getCard(row, col) == null) {
-      throw new IllegalArgumentException("Cell does not have a card.");
-    }
+    ThreeTriosVariant1Model.battleChecks(row, col, gameState != GameState.BATTLE, grid);
 
     // check north
-    attackNorth(row, col, grid.getCard(row, col).getColor(), false);
+    attackNorth(row, col, grid.getCard(row, col).getColor(), false, false);
 
     // check south
-    attackSouth(row, col, grid.getCard(row, col).getColor(), false);
+    attackSouth(row, col, grid.getCard(row, col).getColor(), false, false);
 
     // check east
-    attackEast(row, col, grid.getCard(row, col).getColor(), false);
+    attackEast(row, col, grid.getCard(row, col).getColor(), false, false);
 
     // check west
-    attackWest(row, col, grid.getCard(row, col).getColor(), false);
+    attackWest(row, col, grid.getCard(row, col).getColor(), false, false);
 
     gameState = GameState.PLACING;
   }
@@ -162,115 +166,120 @@ public class ThreeTriosModel implements IThreeTriosModel {
     notifyTurn(currentPlayer);
   }
 
-  private void attackNorth(int row, int col, PlayerColor color, boolean isSim) {
-    if (row == 0) { // check if row - 1 is out of bounds
+  protected void attackNorth(int row, int col, PlayerColor color, boolean isSim, boolean reverse) {
+    if (row == 0) {
+      // check if row - 1 is out of bounds or target card is null
       return;
     }
+
     if (grid.getCard(row - 1, col) == null) {
       return;
     }
-    boolean cardIsOpponents = grid.getCard(row - 1, col).getColor() != color;
-    boolean cardExists = grid.getCard(row - 1, col) != null;
-    if (cardIsOpponents && cardExists) {
-      int attack;
-      if (isSim) {
-        attack = simCard.getAttack(Direction.NORTH);
-      } else {
-        attack = grid.getCard(row, col).getAttack(Direction.NORTH);
-      }
-      int defense = grid.getCard(row - 1, col).getAttack(Direction.SOUTH);
-      if (attack > defense) {
+
+    ICard curCard = grid.getCard(row, col);
+    ICard targetCard = grid.getCard(row - 1, col);
+
+    boolean cardIsOpponents = targetCard.getColor() != color;
+    if (cardIsOpponents) {
+      int attack = isSim ? simCard.getAttack(Direction.NORTH) : curCard.getAttack(Direction.NORTH);
+      int defense = targetCard.getAttack(Direction.SOUTH);
+
+      boolean shouldFlip = reverse ? attack < defense : attack > defense;
+      if (shouldFlip) {
         if (isSim) {
           numFlipped++;
           simulateBattle(simCard, row - 1, col);
         } else {
-          grid.getCard(row - 1, col).setColor(color);
+          targetCard.setColor(color);
           battle(row - 1, col);
         }
       }
     }
   }
 
-  private void attackSouth(int row, int col, PlayerColor color, boolean isSim) {
-    if (row == grid.getGrid().length - 1) { // check if row + 1 is out of bounds
+  protected void attackSouth(int row, int col, PlayerColor color, boolean isSim, boolean reverse) {
+    if (row == grid.getGrid().length - 1) {
+      // check if row + 1 is out of bounds and is not null
       return;
     }
+
     if (grid.getCard(row + 1, col) == null) {
       return;
     }
-    boolean cardIsOpponents = grid.getCard(row + 1, col).getColor() != color;
+
+    ICard curCard = grid.getCard(row, col);
+    ICard targetCard = grid.getCard(row + 1, col);
+
+    boolean cardIsOpponents = targetCard.getColor() != color;
     if (cardIsOpponents) {
-      int attack;
-      if (isSim) {
-        attack = simCard.getAttack(Direction.SOUTH);
+      int attack = isSim ? simCard.getAttack(Direction.SOUTH) : curCard.getAttack(Direction.SOUTH);
+      int defense = targetCard.getAttack(Direction.NORTH);
+
+      boolean shouldFlip = reverse ? attack < defense : attack > defense;
+      if (shouldFlip) {
+        numFlipped++;
+        simulateBattle(simCard, row + 1, col);
       } else {
-        attack = grid.getCard(row, col).getAttack(Direction.SOUTH);
-      }
-      int defense = grid.getCard(row + 1, col).getAttack(Direction.NORTH);
-      if (attack > defense) {
-        if (isSim) {
-          numFlipped++;
-          simulateBattle(simCard, row + 1, col);
-        } else {
-          grid.getCard(row + 1, col).setColor(color);
-          battle(row + 1, col);
-        }
+        targetCard.setColor(color);
+        battle(row + 1, col);
       }
     }
   }
 
-  private void attackEast(int row, int col, PlayerColor color, boolean isSim) {
+  protected void attackEast(int row, int col, PlayerColor color, boolean isSim, boolean reverse) {
     if (col == grid.getGrid()[0].length - 1) { // check if col + 1 is out of bounds
       return;
     }
+
     if (grid.getCard(row, col + 1) == null) {
       return;
     }
-    boolean cardIsOpponents = grid.getCard(row, col + 1).getColor() != color;
-    boolean cardExists = grid.getCard(row, col + 1) != null;
-    if (cardIsOpponents && cardExists) {
-      int attack;
-      if (isSim) {
-        attack = simCard.getAttack(Direction.EAST);
-      } else {
-        attack = grid.getCard(row, col).getAttack(Direction.EAST);
-      }
+
+    ICard curCard = grid.getCard(row, col);
+    ICard targetCard = grid.getCard(row, col + 1);
+
+    boolean cardIsOpponents = targetCard.getColor() != color;
+    if (cardIsOpponents) {
+      int attack = isSim ? simCard.getAttack(Direction.EAST) : curCard.getAttack(Direction.EAST);
       int defense = grid.getCard(row, col + 1).getAttack(Direction.WEST);
-      if (attack > defense) {
+
+      boolean shouldFlip = reverse ? attack < defense : attack > defense;
+      if (shouldFlip) {
         if (isSim) {
           numFlipped++;
           simulateBattle(simCard, row, col + 1);
         } else {
-          grid.getCard(row, col + 1).setColor(color);
+          targetCard.setColor(color);
           battle(row, col + 1);
         }
       }
     }
   }
 
-  private void attackWest(int row, int col, PlayerColor color, boolean isSim) {
+  protected void attackWest(int row, int col, PlayerColor color, boolean isSim, boolean reverse) {
     if (col == 0) { // check if col - 1 is out of bounds
       return;
     }
+
     if (grid.getCard(row, col - 1) == null) {
       return;
     }
-    boolean cardIsOpponents = grid.getCard(row, col - 1).getColor() != color;
-    boolean cardExists = grid.getCard(row, col - 1) != null;
-    if (cardIsOpponents && cardExists) {
-      int attack;
-      if (isSim) {
-        attack = simCard.getAttack(Direction.EAST);
-      } else {
-        attack = grid.getCard(row, col).getAttack(Direction.WEST);
-      }
-      int defense = grid.getCard(row, col - 1).getAttack(Direction.EAST);
-      if (attack > defense) {
+
+    ICard curCard = grid.getCard(row, col);
+    ICard targetCard = grid.getCard(row, col - 1);
+
+    boolean cardIsOpponents = targetCard.getColor() != color;
+    if (cardIsOpponents) {
+      int attack = isSim ? simCard.getAttack(Direction.WEST) : curCard.getAttack(Direction.WEST);
+      int defense = targetCard.getAttack(Direction.EAST);
+
+      boolean shouldFlip = reverse ? attack < defense : attack > defense;
+      if (shouldFlip) {
         if (isSim) {
           numFlipped++;
           simulateBattle(simCard, row, col - 1);
         } else {
-          grid.getCard(row, col - 1).setColor(color);
+          targetCard.setColor(color);
           battle(row, col - 1);
         }
       }
@@ -429,18 +438,18 @@ public class ThreeTriosModel implements IThreeTriosModel {
     return tempNumFlipped;
   }
 
-  private void simulateBattle(ICard card, int row, int col) {
+  protected void simulateBattle(ICard card, int row, int col) {
 
     // check north
-    attackNorth(row, col, card.getColor(), true);
+    attackNorth(row, col, card.getColor(), true, false);
 
     // check south
-    attackSouth(row, col, card.getColor(), true);
+    attackSouth(row, col, card.getColor(), true, false);
 
     // check east
-    attackEast(row, col, card.getColor(), true);
+    attackEast(row, col, card.getColor(), true, false);
 
     // check west
-    attackWest(row, col, card.getColor(), true);
+    attackWest(row, col, card.getColor(), true, false);
   }
 }

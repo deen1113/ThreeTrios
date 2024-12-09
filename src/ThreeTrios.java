@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import javax.swing.JFrame;
 
 import controller.ThreeTriosController;
+import model.IThreeTriosModel;
+import model.ThreeTriosVariant1Model;
 import player.AIPlayer;
 import player.HumanPlayer;
 import player.IPlayer;
@@ -20,29 +22,59 @@ import view.ThreeTriosJSwingView;
 public final class ThreeTrios {
 
   /**
-   * Main.
+   * If you would like to play a variant of ThreeTrios, add a third string
+   * "reverse" for the reverse variant, "fallen" for the fallen variant, or
+   * "both" for both.
+   * If you would not like to play with a variant, simply do not add anything
+   * other than the players.
+   * To activate the game, you must give the first player, either "human",
+   * "strategy1", or "strategy2", then same for the next player after the variants.
    *
    * @param args arguments
    */
   public static void main(String[] args) {
-    ThreeTriosModel model;
+    IThreeTriosModel model;
     IPlayer player1;
     IPlayer player2;
 
-
-    if (args.length != 2) {
+    if (args.length < 2 || args.length > 3) {
       throw new IllegalArgumentException("Wrong number of arguments");
     }
 
     try {
-      model = new ThreeTriosModel(
-              "resources" + File.separator + "testDeck9+1.txt",
-              "resources" + File.separator + "grid4x4OneHole.txt");
+      if (args.length == 3) {
+        switch (args[0]) {
+          case "reverse":
+            model = new ThreeTriosVariant1Model(
+                    "resources" + File.separator + "testDeck9+1.txt",
+                    "resources" + File.separator + "grid4x4OneHole.txt",
+                    true, false);
+            break;
+          case "fallen":
+            model = new ThreeTriosVariant1Model(
+                    "resources" + File.separator + "testDeck9+1.txt",
+                    "resources" + File.separator + "grid4x4OneHole.txt",
+                    false, true);
+            break;
+          case "both":
+            model = new ThreeTriosVariant1Model(
+                    "resources" + File.separator + "testDeck9+1.txt",
+                    "resources" + File.separator + "grid4x4OneHole.txt",
+                    true, true);
+            break;
+          default:
+            throw new IllegalArgumentException("Invalid variant: " + args[0]);
+        }
+      } else {
+        model = new ThreeTriosModel(
+                "resources" + File.separator + "testDeck9+1.txt",
+                "resources" + File.separator + "grid4x4OneHole.txt");
+      }
     } catch (FileNotFoundException e) {
       throw new RuntimeException(e);
     }
 
-    switch (args[0].toLowerCase()) {
+    switch (args[args.length - 2].toLowerCase()) {
       case "human":
         player1 = new HumanPlayer(model, PlayerColor.RED, model.getRedHand());
         break;
@@ -57,7 +89,7 @@ public final class ThreeTrios {
         break;
     }
 
-    switch (args[1].toLowerCase()) {
+    switch (args[args.length - 1].toLowerCase()) {
       case "human":
         player2 = new HumanPlayer(model, PlayerColor.BLUE, model.getBlueHand());
         break;
