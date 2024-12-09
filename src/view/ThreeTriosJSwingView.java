@@ -1,12 +1,11 @@
 package view;
 
-import java.awt.Color;
-import java.awt.BorderLayout;
+import java.awt.*;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 import controller.IPlayerActions;
+import model.ICard;
 import model.IReadonlyThreeTriosModel;
 import model.PlayerColor;
 
@@ -17,6 +16,7 @@ import model.PlayerColor;
  */
 public class ThreeTriosJSwingView extends JFrame implements IThreeTriosJSwingView {
   private final IReadonlyThreeTriosModel model;
+  private final GridWithHintDecorator gridDecorator;
   private final HandView redHand;
   private final HandView blueHand;
   private final GridView gridView;
@@ -39,7 +39,22 @@ public class ThreeTriosJSwingView extends JFrame implements IThreeTriosJSwingVie
     add(blueHand, BorderLayout.EAST);
 
     gridView = new GridView(model);
-    add(gridView, BorderLayout.CENTER);
+    gridDecorator = new GridWithHintDecorator(model, gridView);
+    add(gridDecorator, BorderLayout.CENTER);
+
+    // for toggling hints
+    add(createHintButtonPanel(), BorderLayout.SOUTH);
+  }
+
+  private JPanel createHintButtonPanel() {
+    JPanel hintButtons = new JPanel();
+    hintButtons.setLayout(new FlowLayout());
+
+    JButton hintButton = new JButton("Toggle Hints");
+    hintButton.addActionListener(e -> features.onHintButtonClicked());
+    hintButtons.add(hintButton);
+
+    return hintButtons;
   }
 
   @Override
@@ -59,10 +74,21 @@ public class ThreeTriosJSwingView extends JFrame implements IThreeTriosJSwingVie
     // Update grid
     gridView.refresh();
 
+    gridDecorator.refresh();
+
     revalidate();
     repaint();
   }
 
+  @Override
+  public boolean isHintsEnabled() {
+    return gridDecorator.isHintsEnabled();
+  }
+
+  @Override
+  public void updateHints(ICard selectedCard) {
+    gridDecorator.updateHints(selectedCard);
+  }
 
   @Override
   public void setFeatures(IPlayerActions features) {
@@ -124,6 +150,16 @@ public class ThreeTriosJSwingView extends JFrame implements IThreeTriosJSwingVie
               JOptionPane.INFORMATION_MESSAGE);
     }
   }
+
+  @Override
+  public void toggleHints(PlayerColor playerColor, boolean enable) {
+    if (playerColor == PlayerColor.RED) {
+      gridDecorator.setHints(enable);
+    } else if (playerColor == PlayerColor.BLUE) {
+      gridDecorator.setHints(enable);
+    }
+  }
+
 
   @Override
   public void displayException(Exception e) {

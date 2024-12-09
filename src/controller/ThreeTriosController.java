@@ -22,8 +22,8 @@ public class ThreeTriosController implements IPlayerActions, ModelListener {
    * information about the game state. The controller is also assigned a player,
    * and the player can only use their assigned controller.
    *
-   * @param model ThreeTrios model
-   * @param view ThreeTrios view
+   * @param model  ThreeTrios model
+   * @param view   ThreeTrios view
    * @param player assigned player for the controller
    */
   public ThreeTriosController(IThreeTriosModel model, IThreeTriosJSwingView view, IPlayer player) {
@@ -44,6 +44,10 @@ public class ThreeTriosController implements IPlayerActions, ModelListener {
       int selectedCardIndex = view.getSelectedCardIndex();
       if (selectedCardIndex == -1) {
         throw new IllegalArgumentException("No card selected!");
+      }
+
+      if (view.isHintsEnabled()) {
+        view.updateHints(view.getSelectedCardView().getCard());
       }
 
       System.out.println("Card selected: " + selectedCardIndex);
@@ -82,6 +86,11 @@ public class ThreeTriosController implements IPlayerActions, ModelListener {
     } catch (Exception e) {
       view.displayException(e);
     }
+  }
+
+  @Override
+  public void onHintButtonClicked() {
+    view.toggleHints(this.player.getColor(), !view.isHintsEnabled());
   }
 
   @Override

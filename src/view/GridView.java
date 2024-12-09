@@ -5,16 +5,13 @@ import java.awt.event.MouseEvent;
 import java.awt.GridLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.BorderLayout;
 
 
 import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 
 import controller.IPlayerActions;
-import model.ICard;
 import model.IReadonlyThreeTriosModel;
-import model.PlayerColor;
 
 /**
  * This is the implementation of the grid for the game.
@@ -90,17 +87,16 @@ public class GridView extends JPanel implements IView {
         if (model.getGrid().isHole(row, col)) {
           cell.setBackground(Color.GRAY);
         } else if (model.cellContents(row, col) != null) {
-          ICard card = model.cellContents(row, col);
-          Color cardColor = card.getColor() == PlayerColor.RED ? Color.PINK : Color.CYAN;
-
-          CardView cardView = new CardView(card, cardColor, 0);
-          cell.setLayout(new BorderLayout());
-          cell.add(cardView, BorderLayout.CENTER);
+          GridWithHintDecorator.CardCells(row, col, cell, model);
         } else {
           cell.setBackground(Color.YELLOW);
         }
       }
     }
+  }
+
+  protected JPanel getGridCell(int row, int col) {
+    return grid[row][col];
   }
 }
 

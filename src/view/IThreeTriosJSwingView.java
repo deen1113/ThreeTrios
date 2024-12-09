@@ -1,5 +1,8 @@
 package view;
 
+import model.ICard;
+import model.PlayerColor;
+
 /**
  * This interface represents the view for the ThreeTrios game.
  * The view has registers three panels, one for each hand and
@@ -35,4 +38,28 @@ public interface IThreeTriosJSwingView extends IView {
    * @param e thrown exception
    */
   void displayException(Exception e);
+
+  /**
+   * Returns true if hints are enabled and false if not.
+   * Checks from the GridViewWithHintsDecorator.
+   *
+   * @return true or false
+   */
+  boolean isHintsEnabled();
+
+  /**
+   * Updates hints of the selected card in the grid decorator.
+   *
+   * @param selectedCard selected card to get hints for
+   */
+  void updateHints(ICard selectedCard);
+
+  /**
+   * If given color is RED, toggles hints for red.
+   * If given color is BLUE, toggles hints for blue.
+   *
+   * @param playerColor given player color
+   * @param enable either true for hints on, or false for hints off
+   */
+  void toggleHints(PlayerColor playerColor, boolean enable);
 }

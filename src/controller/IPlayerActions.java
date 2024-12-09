@@ -24,6 +24,13 @@ public interface IPlayerActions {
   void onGridCellSelected(int row, int col);
 
   /**
+   * Called when hints button is toggled.
+   * If player is RED, toggles RED hints.
+   * If player is BLUE, toggles BLUE hints.
+   */
+  void onHintButtonClicked();
+
+  /**
    * Gets the player associated with this controller.
    *
    * @return the player
