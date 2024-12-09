@@ -1,8 +1,5 @@
 package controller;
 
-import cs3500.threetrios.providernew.controller.ModelWatcher;
-import cs3500.threetrios.providernew.controller.PlayerAction;
-import cs3500.threetrios.providernew.model.IMove;
 import player.AIPlayer;
 import player.IPlayer;
 import model.IThreeTriosModel;
@@ -14,8 +11,7 @@ import view.IThreeTriosJSwingView;
  * view and responds when the player clicks on the view and or the model sends an update.
  * The player can click on a card in the hands or on the grid.
  */
-public class ThreeTriosController implements IPlayerActions, ModelListener,
-        ModelWatcher, PlayerAction {
+public class ThreeTriosController implements IPlayerActions, ModelListener {
   private final IThreeTriosModel model;
   private final IThreeTriosJSwingView view;
   private final IPlayer player;
@@ -99,56 +95,6 @@ public class ThreeTriosController implements IPlayerActions, ModelListener,
 
     if (currentPlayer instanceof AIPlayer) {
       player.playCard(0, 0, 0, player.getColor());
-    }
-  }
-
-  @Override
-  public void signalTurn() {
-  }
-
-  @Override
-  public void callWinner() {
-    view.displayGameWinner();
-  }
-
-  @Override
-  public void handleCellClick(int row, int col) {
-    onGridCellSelected(row, col);
-  }
-
-  @Override
-  public void handleCardClick(int index, cs3500.threetrios.providernew.model.PlayerColor color) {
-    onCardSelected();
-  }
-
-  @Override
-  public void handleMove(IMove move) {
-    try {
-      if (!model.getCurrentPlayer().getColor().equals(player.getColor())) {
-        throw new IllegalStateException("It's not your turn!");
-      }
-
-      int row = move.getPosY();
-      int col = move.getPosX();
-      int cardIdx = move.getHandIndex();
-
-      PlayerColor providerColor = model.getCurrentPlayer().getColor();
-      PlayerColor moveColor = PlayerColor.valueOf(providerColor.name());
-
-      player.playCard(row, col, cardIdx, moveColor);
-
-      model.battle(row, col);
-
-      model.updateCurrentPlayer();
-
-      if (model.isGameOver()) {
-        view.displayGameWinner();
-      }
-
-      view.refresh();
-
-    } catch (Exception e) {
-      view.displayException(e);
     }
   }
 }

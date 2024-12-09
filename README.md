@@ -1,5 +1,3 @@
-git pull# Three Trios Game
-
 `ThreeTrioModel` implements the core functionality and rules for a two player card based grid game, 
 called **Three Trios**. This code is for managing gameplay, enforcing game mechanics, 
 and determining victory conditions.
