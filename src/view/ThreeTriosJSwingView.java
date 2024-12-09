@@ -71,9 +71,6 @@ public class ThreeTriosJSwingView extends JFrame implements IThreeTriosJSwingVie
     redHand.updateHand(model.getRedHand(), isRedCurrentPlayer);
     blueHand.updateHand(model.getBlueHand(), !isRedCurrentPlayer);
 
-    // Update grid
-    gridView.refresh();
-
     gridDecorator.refresh();
 
     revalidate();
@@ -96,6 +93,7 @@ public class ThreeTriosJSwingView extends JFrame implements IThreeTriosJSwingVie
     redHand.setFeatures(features);
     blueHand.setFeatures(features);
     gridView.setFeatures(features);
+    gridDecorator.setFeatures(features);
 
     // Initial hand update
     boolean isRedCurrentPlayer = model.getCurrentPlayer().getColor() == PlayerColor.RED;

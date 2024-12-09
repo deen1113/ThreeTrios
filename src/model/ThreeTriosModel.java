@@ -172,15 +172,21 @@ public class ThreeTriosModel implements IThreeTriosModel {
     boolean cardIsOpponents = grid.getCard(row - 1, col).getColor() != color;
     boolean cardExists = grid.getCard(row - 1, col) != null;
     if (cardIsOpponents && cardExists) {
-      int attack = grid.getCard(row, col).getAttack(Direction.NORTH);
+      int attack;
+      if (isSim) {
+        attack = simCard.getAttack(Direction.NORTH);
+      } else {
+        attack = grid.getCard(row, col).getAttack(Direction.NORTH);
+      }
       int defense = grid.getCard(row - 1, col).getAttack(Direction.SOUTH);
       if (attack > defense) {
         if (isSim) {
           numFlipped++;
           simulateBattle(simCard, row - 1, col);
+        } else {
+          grid.getCard(row - 1, col).setColor(color);
+          battle(row - 1, col);
         }
-        grid.getCard(row - 1, col).setColor(color);
-        battle(row - 1, col);
       }
     }
   }
@@ -194,15 +200,21 @@ public class ThreeTriosModel implements IThreeTriosModel {
     }
     boolean cardIsOpponents = grid.getCard(row + 1, col).getColor() != color;
     if (cardIsOpponents) {
-      int attack = grid.getCard(row, col).getAttack(Direction.SOUTH);
+      int attack;
+      if (isSim) {
+        attack = simCard.getAttack(Direction.SOUTH);
+      } else {
+        attack = grid.getCard(row, col).getAttack(Direction.SOUTH);
+      }
       int defense = grid.getCard(row + 1, col).getAttack(Direction.NORTH);
       if (attack > defense) {
         if (isSim) {
           numFlipped++;
           simulateBattle(simCard, row + 1, col);
+        } else {
+          grid.getCard(row + 1, col).setColor(color);
+          battle(row + 1, col);
         }
-        grid.getCard(row + 1, col).setColor(color);
-        battle(row + 1, col);
       }
     }
   }
@@ -217,15 +229,21 @@ public class ThreeTriosModel implements IThreeTriosModel {
     boolean cardIsOpponents = grid.getCard(row, col + 1).getColor() != color;
     boolean cardExists = grid.getCard(row, col + 1) != null;
     if (cardIsOpponents && cardExists) {
-      int attack = grid.getCard(row, col).getAttack(Direction.EAST);
+      int attack;
+      if (isSim) {
+        attack = simCard.getAttack(Direction.EAST);
+      } else {
+        attack = grid.getCard(row, col).getAttack(Direction.EAST);
+      }
       int defense = grid.getCard(row, col + 1).getAttack(Direction.WEST);
       if (attack > defense) {
         if (isSim) {
           numFlipped++;
           simulateBattle(simCard, row, col + 1);
+        } else {
+          grid.getCard(row, col + 1).setColor(color);
+          battle(row, col + 1);
         }
-        grid.getCard(row, col + 1).setColor(color);
-        battle(row, col + 1);
       }
     }
   }
@@ -240,15 +258,21 @@ public class ThreeTriosModel implements IThreeTriosModel {
     boolean cardIsOpponents = grid.getCard(row, col - 1).getColor() != color;
     boolean cardExists = grid.getCard(row, col - 1) != null;
     if (cardIsOpponents && cardExists) {
-      int attack = grid.getCard(row, col).getAttack(Direction.WEST);
+      int attack;
+      if (isSim) {
+        attack = simCard.getAttack(Direction.EAST);
+      } else {
+        attack = grid.getCard(row, col).getAttack(Direction.WEST);
+      }
       int defense = grid.getCard(row, col - 1).getAttack(Direction.EAST);
       if (attack > defense) {
         if (isSim) {
           numFlipped++;
           simulateBattle(simCard, row, col - 1);
+        } else {
+          grid.getCard(row, col - 1).setColor(color);
+          battle(row, col - 1);
         }
-        grid.getCard(row, col - 1).setColor(color);
-        battle(row, col - 1);
       }
     }
   }
