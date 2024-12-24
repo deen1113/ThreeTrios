@@ -138,7 +138,7 @@ public class ThreeTriosModel implements IThreeTriosModel {
 
   @Override
   public void battle(int row, int col) {
-    ThreeTriosVariant1Model.battleChecks(row, col, gameState != GameState.BATTLE, grid);
+    battleChecks(row, col, gameState != GameState.BATTLE, grid);
 
     // check north
     attackNorth(row, col, grid.getCard(row, col).getColor(), false, false);
@@ -217,11 +217,13 @@ public class ThreeTriosModel implements IThreeTriosModel {
 
       boolean shouldFlip = reverse ? attack < defense : attack > defense;
       if (shouldFlip) {
-        numFlipped++;
-        simulateBattle(simCard, row + 1, col);
-      } else {
-        targetCard.setColor(color);
-        battle(row + 1, col);
+        if (isSim) {
+          numFlipped++;
+          simulateBattle(simCard, row + 1, col);
+        } else {
+          targetCard.setColor(color);
+          battle(row + 1, col);
+        }
       }
     }
   }
@@ -430,6 +432,7 @@ public class ThreeTriosModel implements IThreeTriosModel {
 
   @Override
   public int totalFlippedWithMove(ICard card, int row, int col) {
+    System.out.println(gameState);
     simCard = card;
     simulateBattle(card, row, col);
 
